@@ -1,0 +1,1 @@
+var amountSecondaryImages = 0;

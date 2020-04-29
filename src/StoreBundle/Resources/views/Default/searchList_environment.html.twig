@@ -1,0 +1,94 @@
+{{ form_start(identify_keyword_form_ajax, { 'attr' : {'novalidate': 'novalidate', 'role' : 'form', 'id': 'identify-keyword-ajax'|default('form')} }) }}
+{{ form_end(identify_keyword_form_ajax) }}
+
+<div id="search_list"
+     data-id1=0>
+    <div id="search_item">
+        search
+    </div>
+</div>
+
+<script>
+    
+    function identifyKeyword()
+    {
+        var keyword = document.getElementById('searchEngineMachine').value;
+        if (keyword)
+        {
+            
+        } else
+        {
+            var keyword = "mike";
+        }
+        
+        var form = $('#identify-keyword-ajax');
+        var url = form.attr('action');
+        
+        $.post(url, {keyword: keyword}, function (data)
+        {
+            var found_total_products = data[0].found_total_products;
+                alert("found_total_products "+found_total_products);            
+            for (i=0; i<found_total_products; i++)
+            {
+{#                alert("found_total_products "+found_total_products);#}
+                var description = data[i].description;
+                var found_sales_amount = data[i].found_sales_amount;
+                var found_product_score = data[i].found_product_score;
+                var found_search_results = data[i].found_search_results;
+                var found_images_amount = data[i].found_images_amount;
+                var found_product_id = data[i].found_product_id;
+                var found_product_name = data[i].found_product_name;
+                var found_product_price = data[i].found_product_price;
+                var found_product_description = data[i].found_product_description;
+                var found_product_image = data[i].found_product_image;
+                {#alert(
+                    "\ndescription "+description+
+                    "\nfound_sales_amount "+found_sales_amount+
+                    "\nfound_product_score "+found_product_score+
+                    "\nfound_search_results "+found_search_results+
+                    "\nfound_images_amount "+found_images_amount+
+                    "\nfound_product_id "+found_product_id
+                    );#}
+                                        
+
+                var aditionalInfo = new Array(5);
+                aditionalInfo[0] = description;
+                aditionalInfo[1] = found_sales_amount;
+                aditionalInfo[2] = found_product_score;
+                aditionalInfo[3] = found_search_results;
+                aditionalInfo[4] = found_images_amount;
+                var kindOfList = "searchList";
+                var productsAmount = "all";
+    
+                drawProduct_shoppingList(
+                    found_product_id, 
+                    found_product_name, 
+                    found_product_price, 
+                    found_product_description, 
+                    found_product_image, 
+                    aditionalInfo, 
+                    kindOfList, 
+                    productsAmount
+                );
+
+            }
+            
+            alert("edit-stock-amount-ajax "+keyword);
+        }).fail(function () {
+            alert('ERROR edit-stock-amount-ajax '+keyword);
+        });
+    }
+    
+    $('#search_list')
+    .scroll(function () {
+    })
+    .mouseover(function () {
+        var search_list = document.getElementById("search_list");
+        search_list.classList.add("visibleScroll");
+    })
+    .mouseout(function () {
+        var search_list = document.getElementById("search_list");
+        search_list.classList.remove("visibleScroll");
+    });
+    
+</script>

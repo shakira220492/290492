@@ -1,0 +1,364 @@
+{{ form_start(get_city_form_ajax, { 'attr' : {'novalidate': 'novalidate', 'role' : 'form', 'id': 'get-city-ajax'|default('form')} }) }}
+{{ form_end(get_city_form_ajax) }}
+
+{{ form_start(get_country_form_ajax, { 'attr' : {'novalidate': 'novalidate', 'role' : 'form', 'id': 'get-country-ajax'|default('form')} }) }}
+{{ form_end(get_country_form_ajax) }}
+
+<div id="signUpUser">
+    
+    <form id='signUp_form'>
+
+        <div id='user_name_signUpDiv'>
+        User's Name: 
+        </div>
+        <input id='user_name_signUpInput' onpaste='return false' type='text' name='user_name_signUpInput' size='19'/>
+        
+        <div id='user_email_signUpDiv'>
+        User's Email: 
+        </div>
+        <input id='user_email_signUpInput' onpaste='return false' type='text' name='user_email_signUpInput' size='19'/>
+
+        <div id='user_password_signUpDiv'>
+        User's Password: 
+        </div>
+        <input id='user_password_signUpInput' onpaste='return false' type='password' name='user_password_signUpInput' size='19'/>
+        <div id="hide_user_password_signUpDiv" class="hideShowPassword">
+            <img 
+                style='height: 100%; width: 100%;' 
+                src='files/images/icons/eye.png' 
+                alt='Mountain View'>
+        </div>
+        
+        <div id='user_password_confirmation_signUpDiv'>
+        Confirm user's Password: 
+        </div>
+        <input id='user_password_confirmation_signUpInput' onpaste='return false' type='password' name='user_password_confirmation_signUpInput' size='19'/>
+        <div id="hide_user_password_confirmation_signUpDiv" class="hideShowPassword">
+            <img 
+                style='height: 100%; width: 100%;' 
+                src='files/images/icons/eye.png' 
+                alt='Mountain View'>
+        </div>
+        
+        
+        {#////////////////////#}
+        
+
+        <div id='user_firstGivenName_signUpDiv'>
+        User's First given name: 
+        </div>
+        <input id='user_firstGivenName_signUpInput' onpaste='return false' type='text' name='user_firstGivenName_signUpInput' size='19'/>
+
+        <div id='user_secondGivenName_signUpDiv'>
+        User's Second given name: 
+        </div>
+        <input id='user_secondGivenName_signUpInput' onpaste='return false' type='text' name='user_secondGivenName_signUpInput' size='19'/>
+
+        <div id='user_firstFamilyName_signUpDiv'>
+        User's First family name: 
+        </div>
+        <input id='user_firstFamilyName_signUpInput' onpaste='return false' type='text' name='user_firstFamilyName_signUpInput' size='19'/>
+
+        <div id='user_secondFamilyName_signUpDiv'>
+        User's Second family name: 
+        </div>
+        <input id='user_secondFamilyName_signUpInput' onpaste='return false' type='text' name='user_secondFamilyName_signUpInput' size='19'/>
+
+        
+        {#////////////////////#}
+        
+        
+        <div id='user_country_signUpDiv'>
+        User's Country: 
+        </div>
+        <select id='user_country_signUpSelect' name='user_country_signUpSelect' onchange='getCity();'>
+        </select>
+
+        <div id='user_city_signUpDiv'>
+        User's City: 
+        </div>
+        <select id='user_city_signUpInputSelect' name='user_city_signUpInputSelect'>
+        </select>
+
+        <div id='user_biography_signUpDiv'>
+        User's Biography:
+        </div>
+        <textarea id='user_biography_signUpTextarea' name='user_biography_signUpTextarea'></textarea>
+
+        <div id='user_profilePhoto_signUpDiv'>
+        User's profile photo: 
+        </div>
+        <input type='file' name='user_profilePhoto_signUpInput' id='user_profilePhoto_signUpInput'/>
+        
+        <output id="user_profilePhoto_signUpOutput" class="thumb"><br><br><br><br><br>Here we can watch the video's portrait's image</output>
+
+        <div id='save_signUpDiv'>
+            SAVE
+        </div>
+        
+    </form>
+        
+</div>
+        
+
+<script>
+    var btnSignUp = document.getElementById("btnSignUp");
+    btnSignUp.addEventListener("click", show_signUpForm, false);
+
+    function show_signUpForm()
+    {
+
+        getCountry();
+
+
+        $('#save_signUpDiv').click(function () {
+            signUpUser();
+        });
+
+
+        $('#user_name_signUpInput')
+                .keypress(function (e) {
+                    return solo_letras_numeros(e);
+                });
+
+        $('#user_firstGivenName_signUpInput')
+                .keypress(function (e) {
+                    return solo_letras(e);
+                });
+
+        $('#user_secondGivenName_signUpInput')
+                .keypress(function (e) {
+                    return solo_letras(e);
+                });
+
+        $('#user_firstFamilyName_signUpInput')
+                .keypress(function (e) {
+                    return solo_letras(e);
+                });
+
+        $('#user_secondFamilyName_signUpInput')
+                .keypress(function (e) {
+                    return solo_letras(e);
+                });
+
+        $('#user_country_signUpSelect')
+                .keypress(function (e) {
+                    return solo_letras(e);
+                });
+
+        $('#user_city_signUpInputSelect')
+                .keypress(function (e) {
+                    return solo_letras(e);
+                });
+
+    }
+
+            function signUpUser()
+            {
+                var form = $('#sign-up-ajax');
+                var url = form.attr('action');
+                
+                user_name_signUpInput = document.getElementById('user_name_signUpInput').value;
+                user_firstGivenName_signUpInput = document.getElementById('user_firstGivenName_signUpInput').value;
+                user_secondGivenName_signUpInput = document.getElementById('user_secondGivenName_signUpInput').value;
+                user_firstFamilyName_signUpInput = document.getElementById('user_firstFamilyName_signUpInput').value;
+                user_secondFamilyName_signUpInput = document.getElementById('user_secondFamilyName_signUpInput').value;
+                user_email_signUpInput = document.getElementById('user_email_signUpInput').value;
+                user_password_signUpInput = document.getElementById('user_password_signUpInput').value;
+                user_password_confirmation_signUpInput = document.getElementById('user_password_confirmation_signUpInput').value;
+                user_biography_signUpTextarea = document.getElementById('user_biography_signUpTextarea').value;
+                user_country_signUpSelect = document.getElementById('user_country_signUpSelect').value;
+                user_city_signUpInputSelect = document.getElementById('user_city_signUpInputSelect').value;
+                user_profilePhoto_signUpInput = document.getElementById('user_profilePhoto_signUpInput').value;
+                
+                user_password_signUpDiv = document.getElementById('user_password_signUpDiv');
+                user_password_confirmation_signUpDiv = document.getElementById('user_password_confirmation_signUpDiv');
+                
+                if (!user_name_signUpInput || 
+                    !user_firstGivenName_signUpInput || 
+                    !user_firstFamilyName_signUpInput || 
+                    !user_email_signUpInput || 
+                    !user_password_signUpInput || 
+                    !user_password_confirmation_signUpInput || 
+                    !user_biography_signUpTextarea) {
+                    alert("You need to introduce all information");
+                } else if (user_password_signUpInput !== user_password_confirmation_signUpInput)
+                {
+                    document.getElementById('user_password_signUpInput').value = "";
+                    document.getElementById('user_password_confirmation_signUpInput').value = "";
+
+                    user_password_signUpDiv.style.color = "red";
+                    user_password_confirmation_signUpDiv.style.color = "red";
+                    
+                    alert("Password and its confirmation are diferent, try again");
+                } else {
+                    var formData = new FormData($("#signUp_form")[0]);
+                    var a = 2;
+                    
+                    $.ajax({
+                        url: url,
+                        type: 'POST',
+                        data: formData,
+                        cache: false,
+                        processData: false,
+                        contentType: false
+                    }).done(function (resp) {
+                        var userId = resp[0].userId;
+                        var userProfilephoto = resp[0].userProfilephoto;
+                        var userName = resp[0].userName;
+                        var userFirstgivenname = resp[0].userFirstgivenname;
+                        var userSecondgivenname = resp[0].userSecondgivenname;
+                        var userFirstfamilyname = resp[0].userFirstfamilyname;
+                        var userSecondfamilyname = resp[0].userSecondfamilyname;
+                        var userEmail = resp[0].userEmail;
+                        var userPassword = resp[0].userPassword;
+                        var userBiography = resp[0].userBiography;
+                        var city = resp[0].city;
+                    });
+                    uploadProfilePhoto();
+                }
+            }
+
+            function uploadProfilePhoto()
+            {
+                var form = $('#upload-profile-photo-ajax');
+                var url = form.attr('action');
+
+                var profilePhoto = document.getElementById("user_profilePhoto_signUpInput").files[0];
+
+                var formdata = new FormData();
+                formdata.append("user_profilePhoto_signUpInput", profilePhoto);
+    {#        formdata.append("video_portrait", portrait);#}
+
+                var ajax = new XMLHttpRequest();
+
+                ajax.open("POST", url);
+                ajax.send(formdata);
+            }
+
+            function getCountry()
+            {
+                var form = $('#get-country-ajax');
+                var url = form.attr('action');
+
+                $.post(url, function (data)
+                {
+                    var amountCountries = data[0].amountCountries;
+
+                    var user_country_signUpSelect = document.getElementById("user_country_signUpSelect");
+                    user_country_signUpSelect.innerHTML = "";
+
+                    var i = 0;
+                    while (i < amountCountries)
+                    {
+                        var countryId = data[i].countryId;
+                        var countryName = data[i].countryName;
+
+                        $("#user_country_signUpSelect").append(
+                                "<option id='user_country_signUpSelect" + i + "' name='user_country_signUpSelect" + i + "' value=" + countryName + ">" + countryName + "</option>"
+                                );
+
+                        i++;
+                    }
+
+                }).fail(function () {
+                    alert('ERROR... GET COUNTRY');
+                });
+            }
+
+            function getCity()
+            {
+                var form = $('#get-city-ajax');
+                var url = form.attr('action');
+
+                var user_country_signUpSelect = document.getElementById("user_country_signUpSelect").value;
+
+                $.post(url, {user_country: user_country_signUpSelect}, function (data)
+                {
+                    var amountCities = data[0].amountCities;
+
+                    var user_city_signUpInputSelect = document.getElementById("user_city_signUpInputSelect");
+                    user_city_signUpInputSelect.innerHTML = "";
+
+                    var i = 0;
+                    while (i < amountCities)
+                    {
+
+                        var cityId = data[i].cityId;
+                        var cityName = data[i].cityName;
+
+                        $("#user_city_signUpInputSelect").append(
+                                "<option id='user_city_signUpInputSelect" + i + "' name='user_city_signUpInputSelect" + i + "' value=" + cityName + ">" + cityName + "</option>"
+                                );
+
+                        i++;
+                    }
+
+                }).fail(function () {
+                    alert('ERROR... GET CITY');
+                });
+            }
+            
+    $('#signUpUser')
+    .mouseover(function () {
+        var signUpUser = document.getElementById("signUpUser");
+        signUpUser.classList.add("visibleScroll");
+    })
+    .mouseout(function () {
+        var signUpUser = document.getElementById("signUpUser");
+        signUpUser.classList.remove("visibleScroll");
+    });
+    
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+    $("#user_profilePhoto_signUpInput").change(function () {
+        upload_profilePhoto(this);
+    });
+
+    function upload_profilePhoto(evt) {
+        var reader = new FileReader();
+        reader.readAsDataURL(evt.files[0]);
+        reader.onload = function (e) {
+        document.getElementById("user_profilePhoto_signUpOutput").innerHTML = ['<img class="thumb" src="', e.target.result, '"/>'].join('');
+        };
+    }
+            
+            
+            
+            
+    $('#hide_user_password_signUpDiv')
+    .click(function () {
+        var user_password_signUpInput = document.getElementById("user_password_signUpInput");
+        if (user_password_signUpInput.type === "text")
+        {
+            user_password_signUpInput.type = "password";
+        } else if (user_password_signUpInput.type === "password")
+        {
+            user_password_signUpInput.type = "text";
+        }
+    });
+    
+    $('#hide_user_password_confirmation_signUpDiv')
+    .click(function () {
+        var user_password_confirmation_signUpInput = document.getElementById("user_password_confirmation_signUpInput");
+        if (user_password_confirmation_signUpInput.type === "text")
+        {
+            user_password_confirmation_signUpInput.type = "password";
+        } else if (user_password_confirmation_signUpInput.type === "password")
+        {
+            user_password_confirmation_signUpInput.type = "text";
+        }
+    });            
+            
+            
+</script>

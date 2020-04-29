@@ -1,0 +1,1434 @@
+{{ form_start(get_stock_form_ajax, { 'attr' : {'novalidate': 'novalidate', 'role' : 'form', 'id': 'get-stock-ajax'|default('form')} }) }}
+{{ form_end(get_stock_form_ajax) }}
+
+{{ form_start(draw_images_about_stock_form_ajax, { 'attr' : {'novalidate': 'novalidate', 'role' : 'form', 'id': 'draw-images-about-stock-ajax'|default('form')} }) }}
+{{ form_end(draw_images_about_stock_form_ajax) }}
+
+{{ form_start(get_branch_form_ajax, { 'attr' : {'novalidate': 'novalidate', 'role' : 'form', 'id': 'get-branch-ajax'|default('form')} }) }}
+{{ form_end(get_branch_form_ajax) }}
+
+{{ form_start(confirm_stockAmount_form_ajax, { 'attr' : {'novalidate': 'novalidate', 'role' : 'form', 'id': 'confirm-stockAmount-ajax'|default('form')} }) }}
+{{ form_end(confirm_stockAmount_form_ajax) }}
+
+{{ form_start(confirm_stockPrice_form_ajax, { 'attr' : {'novalidate': 'novalidate', 'role' : 'form', 'id': 'confirm-stockPrice-ajax'|default('form')} }) }}
+{{ form_end(confirm_stockPrice_form_ajax) }}
+
+
+<div id="stockOrder" data-id1=0 data-id2=0>
+    <table border='0' width='100%' height='50px'>
+        <tr height='25px'>
+            <td width='70px' style="background-color: #ccc;">
+                image
+            </td>
+            
+            <td width='50px' style="background-color: white;">
+                sales
+            </td>
+            <td width='20px' style="background-color: white;">
+                <div id='orderIconSales' data-id1=0>
+                    <img class='orderIcon' 
+                         src='files/images/icons/descendent.png'
+                         alt='-'> 
+                </div>
+            </td>
+            
+            <td width='50px' style="background-color: #ccc;">
+                stock
+            </td>
+            <td width='20px' style="background-color: #ccc;">
+                <div id='orderIconStock' data-id1=0>
+                    <img class='orderIcon' 
+                         src='files/images/icons/descendent.png'
+                         alt='-'> 
+                </div>
+            </td>
+            
+            <td width='50px' style="background-color: white;">
+                name
+            </td>
+            <td width='20px' style="background-color: white;">
+                <div id='orderIconName' data-id1=0>
+                    <img class='orderIcon' 
+                         src='files/images/icons/descendent.png'
+                         alt='-'> 
+                </div>
+            </td>
+            
+            <td width='50px' style="background-color: #ccc;">
+                type
+            </td>
+            <td width='20px' style="background-color: #ccc;">
+                <div id='orderIconType' data-id1=0>
+                    <img class='orderIcon' 
+                         src='files/images/icons/descendent.png'
+                         alt='-'> 
+                </div>
+            </td>            
+            
+        </tr>
+        
+        <tr height='25px'>
+            <td width='70px' style="background-color: #ccc;">
+            </td>
+            
+            <td width='70px' colspan="2" style="background-color: #1ab7ea;">
+                <input type='number' 
+                       placeholder='days' 
+                       id='sellingDays' 
+                       name='sellingDays'/>
+            </td>
+            
+            <td width='50px' style="background-color: #ccc;">
+            </td>
+            <td width='20px' style="background-color: #ccc;">
+            </td>
+            
+            <td width='50px' style="background-color: white;">
+            </td>
+            <td width='20px' style="background-color: white;">
+            </td>
+            
+            <td width='50px' style="background-color: #ccc;">
+            </td>
+            <td width='20px' style="background-color: #ccc;">
+            </td>
+            
+    </table>
+</div>
+
+<div id="stockList_environment_environment">
+    <div id="stockList_environment">
+
+    </div>
+</div>
+             
+            
+<script>
+    
+    $('#orderIconSales')
+    .click(function () {     
+        
+        var orderIconSalesDiv = document.getElementById("orderIconSales");
+        
+        var status = $('#orderIconSales').data('id1');
+
+        if (status === 0)
+        {
+            orderIconSalesDiv.innerHTML = 
+                "<img class='orderIcon' "+
+                     "src='files/images/icons/ascendent.png'"+
+                     "alt='-'> ";
+             $('#orderIconSales').data('id1', 1);
+             $('#stockOrder').data('id1', 1);
+        }
+        else if (status === 1)
+        {
+            orderIconSalesDiv.innerHTML = 
+                "<img class='orderIcon' "+
+                     "src='files/images/icons/descendent.png'"+
+                     "alt='-'> ";
+             $('#orderIconSales').data('id1', 0);
+             $('#stockOrder').data('id1', 0);
+        }
+        
+        $('#stockOrder').data('id2', 1); // 1: order by sales
+        
+        getStock();
+        
+    });
+    
+    $('#orderIconStock')
+    .click(function () {
+        
+        var orderIconStockDiv = document.getElementById("orderIconStock");
+        
+        var status = $('#orderIconStock').data('id1');
+
+        if (status === 0)
+        {
+            orderIconStockDiv.innerHTML = 
+                "<img class='orderIcon' "+
+                     "src='files/images/icons/ascendent.png'"+
+                     "alt='-'> ";
+             $('#orderIconStock').data('id1', 1);
+             $('#stockOrder').data('id1', 1);
+        }
+        else if (status === 1)
+        {
+            orderIconStockDiv.innerHTML = 
+                "<img class='orderIcon' "+
+                     "src='files/images/icons/descendent.png'"+
+                     "alt='-'> ";
+             $('#orderIconStock').data('id1', 0);
+             $('#stockOrder').data('id1', 0);
+        }
+        
+        $('#stockOrder').data('id2', 2); // 2: order by Stock
+        
+        getStock();
+        
+    });
+    
+    $('#orderIconName')
+    .click(function () {            
+        
+        var orderIconNameDiv = document.getElementById("orderIconName");
+        
+        var status = $('#orderIconName').data('id1');
+
+        if (status === 0)
+        {
+            orderIconNameDiv.innerHTML = 
+                "<img class='orderIcon' "+
+                     "src='files/images/icons/ascendent.png'"+
+                     "alt='-'> ";
+             $('#orderIconName').data('id1', 1);
+             $('#stockOrder').data('id1', 1);
+        }
+        else if (status === 1)
+        {
+            orderIconNameDiv.innerHTML = 
+                "<img class='orderIcon' "+
+                     "src='files/images/icons/descendent.png'"+
+                     "alt='-'> ";
+             $('#orderIconName').data('id1', 0);
+             $('#stockOrder').data('id1', 0);
+        }
+        
+        $('#stockOrder').data('id2', 3); // 3: order by Name
+        
+        getStock();
+        
+    });
+    
+    $('#orderIconType')
+    .click(function () {            
+        
+        var orderIconTypeDiv = document.getElementById("orderIconType");
+        
+        var status = $('#orderIconType').data('id1');
+
+        if (status === 0)
+        {
+            orderIconTypeDiv.innerHTML = 
+                "<img class='orderIcon' "+
+                     "src='files/images/icons/ascendent.png'"+
+                     "alt='-'> ";
+             $('#orderIconType').data('id1', 1);
+             $('#stockOrder').data('id1', 1);
+        }
+        else if (status === 1)
+        {
+            orderIconTypeDiv.innerHTML = 
+                "<img class='orderIcon' "+
+                     "src='files/images/icons/descendent.png'"+
+                     "alt='-'> ";
+             $('#orderIconType').data('id1', 0);
+             $('#stockOrder').data('id1', 0);
+        }
+        
+        $('#stockOrder').data('id2', 4); // 4: order by Type
+        
+        getStock();
+        
+    });
+    
+
+    
+    
+    
+    
+    function getStock()
+    {
+        var order = $('#stockOrder').data('id1'); // 1: ascendent; 0: descendent (by default)
+        var orderType = $('#stockOrder').data('id2'); // 0: default, 1: sales, 2: stock, 3: name, 4: type 
+
+        
+        var form = $('#get-stock-ajax');
+        var url = form.attr('action');
+
+        var sellingDays = document.getElementById("sellingDays").value;
+        if (sellingDays)
+        {
+
+        } else
+        {
+            sellingDays = 0;
+        }
+        $.post(url, {daysAmount: sellingDays, order: order, orderType: orderType}, function (data)
+        {
+            alert("get-stock-ajax");
+            
+            document.getElementById("stockList_environment").innerHTML = "";
+            
+            var amountProducts = data[0].amountProducts; alert("amountProducts "+amountProducts);
+            for (i=0; i<amountProducts; i++)
+            {
+                var productId = data[i].productId;
+                var productName = data[i].productName;
+                var productPrice = data[i].productPrice;
+                var productDescription = data[i].productDescription;
+                var productImage = data[i].productImage;
+                var producttypeId = data[i].producttypeId;
+                var producttypeName = data[i].producttypeName;
+                var artistId = data[i].artistId;
+                var artistName = data[i].artistName;
+                var userId = data[i].userId;
+                var userName = data[i].userName;
+                var salesAmount = data[i].salesAmount;
+                var stockAmount = data[i].stockAmount;
+                
+                drawStock(
+                        productId,
+                        productName,
+                        productPrice,
+                        productDescription,
+                        productImage,
+                        producttypeId,
+                        producttypeName,
+                        artistId,
+                        artistName,
+                        userId,
+                        userName,
+                        salesAmount,
+                        stockAmount
+                        );
+            }
+            
+        }).fail(function () {
+            alert('ERROR get-stock-ajax');
+        });
+    }
+    
+    function drawStock(
+        productId,
+        productName,
+        productPrice,
+        productDescription,
+        productImage,
+        producttypeId,
+        producttypeName,
+        artistId,
+        artistName,
+        userId,
+        userName,
+        salesAmount,
+        stockAmount)
+    {
+        
+            $("#stockList_environment").append(
+                "<div id='productId"+productId+"' class='productId stockAccordion' "+
+                    "data-id1='"+productId+"' "+
+                    " >"+
+                
+                    "<table border='0' width='100%' height='50px'>"+
+                    "<tr>"+
+                    "<td width='70px' height='50px'>"+
+                        "<div class='stockImage' id='stockImage"+productId+"' >"+
+                            "<img class='stockImageContent' src='files/products/"+userId+"/"+productImage+"' alt='-'>"+
+                            "<div class='openStockFrame' id='openStockFrame" + productId + "' data-id1=0 >+"+
+                            "</div>"+
+                            "<div class='closeStockFrame' id='closeStockFrame" + productId + "'>-"+ 
+                            "</div>"+
+                        "</div>"+
+                    "</td>"+
+                    
+                    "<td width='70px' style='"+
+                        "border-bottom-color: gray; border-bottom-style: solid; border-bottom-width: 1px; "+
+                        "background-color: rgba(255, 255, 255, 0.1);'"+
+                        ">"+
+                        "<div class='salesAmount' id='salesAmount"+productId+"' "+
+                        ">"+
+                        salesAmount+
+                        "</div>"+
+                    "</td>"+
+                    
+                    "<td width='70px' style='"+
+                        "border-bottom-color: gray; border-bottom-style: solid; border-bottom-width: 1px; "+
+                        "background-color: rgba(0, 0, 0, 0.1);'"+
+                        ">"+
+                        "<div class='editStockAmount' id='editStockAmount"+productId+"' "+
+                        "data-id1=0 "+
+                        ">"+
+                        stockAmount+
+                        "</div>"+
+                    "</td>"+            
+                    
+                    "<td width='70px' style='"+
+                        "border-bottom-color: gray; border-bottom-style: solid; border-bottom-width: 1px; "+
+                        "background-color: rgba(255, 255, 255, 0.1);'"+
+                        ">"+
+                        "<div class='productName' id='productName"+productId+"' "+
+                        ">"+
+                        productName+
+                        "</div>"+
+                    "</td>"+
+                    "<td width='70px' style='"+
+                        "border-bottom-color: gray; border-bottom-style: solid; border-bottom-width: 1px; "+
+                        "background-color: rgba(0, 0, 0, 0.1); '"+
+                        ">"+
+                        "<div class='producttypeName' id='producttypeName"+productId+"' "+
+                        ">"+
+                        producttypeName+
+                        "</div>"+
+                    "</td>"+
+                    
+               
+                            
+                    "</tr>"+
+                    "</table>"+
+                    
+                "</div>"+
+                "<div class='stockPanel' id='stockDetails" + productId + "' data-id1=0 >" + 
+                    "xxx"+
+                "</div>"+
+                "<div class='stockAmountPanel' id='stockAmountDetails" + productId + "' >" + 
+                    
+                "</div>"
+            );
+
+            if (productImage === "_")
+            {
+                var column = 'stockImage'+productId;
+                document.getElementById(column).innerHTML = 
+                    "<img class='stockImageContent' src='files/products/secondaryImages/without_image.jpg' alt='-'>"+
+                    "<div class='openStockFrame' id='openStockFrame" + productId + "' data-id1=0 >+"+
+                    "</div>"+
+                    "<div class='closeStockFrame' id='closeStockFrame" + productId + "'>-"+ 
+                    "</div>";
+            }
+            
+    
+    
+
+            var orderType = $('#stockOrder').data('id2'); // 0: default, 1: sales, 2: stock, 3: name, 4: type 
+            if (orderType === 0)
+            {
+                var column = 'productName'+productId;
+                document.getElementById(column).style.color = "red";
+            } else if (orderType === 1)
+            {
+                var column = 'salesAmount'+productId;
+                document.getElementById(column).style.color = "red";
+            } else if (orderType === 2)
+            {
+                var column = 'editStockAmount'+productId;
+                document.getElementById(column).style.color = "red";
+            } else if (orderType === 3)
+            {
+                var column = 'productName'+productId;
+                document.getElementById(column).style.color = "red";
+
+            } else if (orderType === 4)
+            {
+                var column = 'producttypeName'+productId;
+                document.getElementById(column).style.color = "red";
+
+            }
+            
+            
+            
+            
+            
+            
+    
+    
+    
+    
+        $('#productId'+productId)
+        .mouseover(function () {
+            var openStockFrameId = "openStockFrame"+productId;
+            var openStockFrame = document.getElementById(openStockFrameId);
+            openStockFrame.style.opacity = 1;
+            
+            var closeStockFrameId = "closeStockFrame"+productId;
+            var closeStockFrame = document.getElementById(closeStockFrameId);
+            closeStockFrame.style.opacity = 1;
+            
+            
+            var editStockAmountId = "editStockAmount"+productId;
+            var editStockAmount = document.getElementById(editStockAmountId);
+            editStockAmount.style.backgroundColor = "#1ab7ea";
+        })
+        .mouseout(function () {
+            var openStockFrameId = "openStockFrame"+productId;
+            var openStockFrame = document.getElementById(openStockFrameId);
+            openStockFrame.style.opacity = 0;
+            
+            var closeStockFrameId = "closeStockFrame"+productId;
+            var closeStockFrame = document.getElementById(closeStockFrameId);
+            closeStockFrame.style.opacity = 0;
+            
+            
+            var editStockAmountId = "editStockAmount"+productId;
+            var editStockAmount = document.getElementById(editStockAmountId);
+            editStockAmount.style.backgroundColor = "transparent";
+        });
+    
+    
+    
+    
+        $('#editStockAmount'+productId)
+        .mouseover(function () {
+            var editStockAmountId = "editStockAmount"+productId;
+            var editStockAmount = document.getElementById(editStockAmountId);
+
+            editStockAmount.style.backgroundColor = "#1ab7ea";
+        })
+        .mouseout(function () {
+            var editStockAmountId = "editStockAmount"+productId;
+            var editStockAmount = document.getElementById(editStockAmountId);
+
+            editStockAmount.style.backgroundColor = "transparent";
+        })
+        .click(function () {
+            var status = $('#editStockAmount'+productId).data('id1');
+        
+            if (status === 0)
+            {
+                $('#editStockAmount'+productId).data('id1', 1);
+                var nextId_stockAmountDetails = "stockAmountDetails" + productId;
+                var nextElement_stockAmountDetails = document.getElementById(nextId_stockAmountDetails);
+                nextElement_stockAmountDetails.style.maxHeight = "200px";
+                getBranch_123(productId);
+            }
+            else if (status === 1)
+            {
+                $('#editStockAmount'+productId).data('id1', 0);
+                var nextId_stockAmountDetails = "stockAmountDetails" + productId;
+                var nextElement_stockAmountDetails = document.getElementById(nextId_stockAmountDetails);
+                nextElement_stockAmountDetails.style.maxHeight = "0px";
+            }
+        });
+
+        $('#openStockFrame'+productId)
+        .mouseover(function () {
+            var openStockFrameId = "openStockFrame"+productId;
+            var openStockFrame = document.getElementById(openStockFrameId);
+
+{#            var emergentGuideId = "emergentGuide"+productId;
+            var emergentGuide = document.getElementById(emergentGuideId);
+
+            emergentGuide.innerHTML = "Hide this list";#}
+            openStockFrame.style.backgroundColor = "#1ab7ea";
+        })
+        .mouseout(function () {
+            var openStockFrameId = "openStockFrame"+productId;
+            var openStockFrame = document.getElementById(openStockFrameId);
+
+            openStockFrame.style.backgroundColor = "rgba(0, 0, 0, 0.6)";
+        })
+        .click(function () {
+            var nextId = "stockDetails" + productId;
+            var nextElement = document.getElementById(nextId);
+
+            nextElement.style.maxHeight = "200px";
+
+            buttonId = "openStockFrame" + productId;
+            buttonId2 = "closeStockFrame" + productId;
+            var currentButton = document.getElementById(buttonId);
+            var currentButton2 = document.getElementById(buttonId2);
+            currentButton.style.display = 'none';
+            currentButton2.style.display = 'block';
+            
+            
+            
+            
+            
+            var status = $('#openStockFrame'+productId).data('id1');
+            
+            if (status === 0)
+            {
+                drawInfoAboutStock(
+                    productId,
+                    productName,
+                    productPrice,
+                    productDescription,
+                    productImage,
+                    producttypeId,
+                    producttypeName,
+                    artistId,
+                    artistName,
+                    userId,
+                    userName,
+                    salesAmount
+                    );
+            } 
+    
+        });
+
+        $('#closeStockFrame'+productId)
+        .mouseover(function () {
+            var closeStockFrameId = "closeStockFrame"+productId;
+            var closeStockFrame = document.getElementById(closeStockFrameId);
+            closeStockFrame.style.backgroundColor = "#1ab7ea";
+        })
+        .mouseout(function () {
+            var closeStockFrameId = "closeStockFrame"+productId;
+            var closeStockFrame = document.getElementById(closeStockFrameId);
+
+            closeStockFrame.style.backgroundColor = "rgba(0, 0, 0, 0.6)";
+        })
+        .click(function () {
+            var nextId = "stockDetails" + productId;
+            var nextElement = document.getElementById(nextId);
+
+            nextElement.style.maxHeight = "0px";
+            
+            buttonId = "openStockFrame" + productId;
+            buttonId2 = "closeStockFrame" + productId;
+            var currentButton = document.getElementById(buttonId);
+            var currentButton2 = document.getElementById(buttonId2);
+            currentButton.style.display = 'block';
+            currentButton2.style.display = 'none';
+            
+        });
+    
+    
+    }
+    
+    
+    $('#sellingDays')
+    .keyup(function (e) {
+        if (e.keyCode === 13)
+        {
+            var sellingDays_value = document.getElementById("sellingDays").value;
+            if (!sellingDays_value)
+            {
+                document.getElementById("sellingDays").style.backgroundColor = "orange";
+            } else
+            {
+                document.getElementById("sellingDays").style.backgroundColor = "white";
+            }
+            getStock();
+        }
+    });
+    
+    
+    function drawInfoAboutStock(
+        productId,
+        productName,
+        productPrice,
+        productDescription,
+        productImage,
+        producttypeId,
+        producttypeName,
+        artistId,
+        artistName,
+        userId,
+        userName,
+        salesAmount)
+    {
+        
+        var status = $('#stockDetails'+productId).data('id1');
+
+        if (status === 0)
+        {
+            $('#stockDetails'+productId).data('id1', 1);
+            
+            var stockDetails_id = "stockDetails"+productId;
+            document.getElementById(stockDetails_id).innerHTML = 
+                "<div id='stockDetails_information"+productId+"' class='stockDetails_information'>"+
+                "</div>"+
+                "<div id='stockDetails_images"+productId+"' class='stockDetails_images'>"+
+                "</div>";
+
+            var stockDetails_information = "stockDetails_information"+productId;
+            document.getElementById(stockDetails_information).innerHTML = 
+            "<br>product id: "+productId+
+            "<br>product name: "+productName+
+            "<br>product price: "+productPrice+
+            "<br>product description: "+productDescription+
+            "<br>product image: "+productImage+
+            "<br>product type id: "+producttypeId+
+            "<br>product type name: "+producttypeName+
+            "<br><br>artist id: "+artistId+
+            "<br>artist name: "+artistName+
+            "<br><br>user id: "+userId+
+            "<br>user name: "+userName+
+            "<br>sales amount: "+salesAmount;
+                alert("salesAmount "+salesAmount);
+            drawImagesAboutStock(productId);
+        }
+        
+    }
+    
+    function drawImagesAboutStock(productId_parameter)
+    {
+        var form = $('#draw-images-about-stock-ajax');
+        var url = form.attr('action');
+      
+        $.post(url, {productId: productId_parameter}, function (data)
+        {
+            var stockDetails_images = "stockDetails_images"+productId_parameter;
+             
+            document.getElementById(stockDetails_images).innerHTML = "";
+             
+            var amountImages = data[0].amountImages;
+            for (i=0; i<amountImages; i++)
+            {
+                var productimageId = data[i].productimageId;
+                var productimageImage = data[i].productimageImage;
+                var userId = data[i].userId;
+                var productId = data[i].productId;
+                
+                if (productimageImage === "_")
+                {
+                } else
+                {
+                    $("#stockDetails_images"+productId).append(
+                        "<br><img id='productImage_image"+productId+"' class='productImage_image' "+
+                             "src='files/products/secondaryImages/"+userId+"/"+productId+"/"+productimageImage+"'"+
+                             "> "                     
+                    );
+                }
+                
+            }
+            
+            $("#stockDetails_images"+productId)
+            .mouseover(function () {
+                var currentDiv_id = "stockDetails_images"+productId;
+                var currentDiv = document.getElementById(currentDiv_id);
+                currentDiv.classList.add("visibleScroll");
+            })
+            .mouseout(function () {
+                var currentDiv_id = "stockDetails_images"+productId;
+                var currentDiv = document.getElementById(currentDiv_id);
+                currentDiv.classList.remove("visibleScroll");
+            });
+
+            $("#stockDetails_information"+productId)
+            .mouseover(function () {
+                var currentDiv_id = "stockDetails_information"+productId;
+                var currentDiv = document.getElementById(currentDiv_id);
+                currentDiv.classList.add("visibleScroll");
+            })
+            .mouseout(function () {
+                var currentDiv_id = "stockDetails_information"+productId;
+                var currentDiv = document.getElementById(currentDiv_id);
+                currentDiv.classList.remove("visibleScroll");
+            });
+            
+            {#alert("draw-images-about-stock-ajax");#}
+        }).fail(function () {
+            alert('ERROR draw-images-about-stock-ajax');
+        });
+    }
+    
+    $('#stockList_environment')
+    .mouseover(function () {
+        var currentDiv = document.getElementById("stockList_environment");
+        currentDiv.classList.add("visibleScroll");
+    })
+    .mouseout(function () {
+        var currentDiv = document.getElementById("stockList_environment");
+        currentDiv.classList.remove("visibleScroll");
+    });
+    
+    function getBranch_123(productId)
+    {
+        var form = $('#get-branch-ajax');
+        var url = form.attr('action');
+
+        $.post(url, {productId: productId}, function (data)
+        {
+            document.getElementById("stockAmountDetails" + productId).innerHTML = "";
+            
+            var branch_name_title = document.createElement("input"); 
+            branch_name_title.id = "branch_name_title" + productId + branchId;
+            branch_name_title.className = "branch_name_title";
+            branch_name_title.name = "branch_name_title" + productId + branchId;
+            branch_name_title.disabled = false;
+            branch_name_title.value = "NAME";
+            document.getElementById("stockAmountDetails" + productId).appendChild(branch_name_title);
+
+            var branch_stock_title = document.createElement("input"); 
+            branch_stock_title.id = "branch_stock_title" + productId + branchId;
+            branch_stock_title.className = "branch_stock_title";
+            branch_stock_title.name = "branch_stock_title" + productId + branchId;
+            branch_stock_title.disabled = false;
+            branch_stock_title.value = "STOCK";
+            document.getElementById("stockAmountDetails" + productId).appendChild(branch_stock_title);
+
+            var branch_price_title = document.createElement("input"); 
+            branch_price_title.id = "branch_price_title" + productId + branchId;
+            branch_price_title.className = "branch_price_title";
+            branch_price_title.name = "branch_price_title" + productId + branchId;
+            branch_price_title.disabled = false;
+            branch_price_title.value = "PRICE";
+            document.getElementById("stockAmountDetails" + productId).appendChild(branch_price_title);
+
+            var branch_description_title = document.createElement("input"); 
+            branch_description_title.id = "branch_description_title" + productId + branchId;
+            branch_description_title.className = "branch_description_title";
+            branch_description_title.name = "branch_description_title" + productId + branchId;
+            branch_description_title.disabled = false;
+            branch_description_title.value = "DESCRIPTION";
+            document.getElementById("stockAmountDetails" + productId).appendChild(branch_description_title);
+
+            
+            var branch_list = document.createElement("div"); 
+            branch_list.id = "branch_list" + productId;
+            branch_list.className = "branch_list";
+            branch_list.name = "branch_list" + productId;
+            branch_list.disabled = true;
+            document.getElementById("stockAmountDetails" + productId).appendChild(branch_list);
+            
+            
+            var amountBranch = data[0].amountBranch;
+            for (i=0; i<amountBranch; i++)
+            {
+                var branchId = data[i].branchId;
+                var branchName = data[i].branchName;
+                var branchAddress = data[i].branchAddress;
+                var branchTelephone = data[i].branchTelephone;
+                var branchCellphone = data[i].branchCellphone;
+                var branchAditionalInformation = data[i].branchAditionalInformation;
+                var cityName = data[i].cityName;
+                var countryName = data[i].countryName;
+                var amountBranch = data[i].amountBranch;
+                var stockAmount = data[i].stockAmount;
+                var stockPrice = data[i].stockPrice;
+                 
+                var branch_itemList = document.createElement("div"); 
+                branch_itemList.id = "branch_itemList" + productId + branchId;
+                branch_itemList.className = "branch_itemList";
+                branch_itemList.name = "branch_itemList" + productId + branchId;
+                branch_itemList.disabled = true;
+                branch_itemList.setAttribute('branchId', branchId);
+                branch_itemList.setAttribute('branchName', branchName);
+                branch_itemList.setAttribute('branchAddress', branchAddress);
+                branch_itemList.setAttribute('branchTelephone', branchTelephone);
+                branch_itemList.setAttribute('branchCellphone', branchCellphone);
+                branch_itemList.setAttribute('branchAditionalInformation', branchAditionalInformation);
+                branch_itemList.setAttribute('cityName', cityName);
+                branch_itemList.setAttribute('countryName', countryName);
+                branch_itemList.setAttribute('amountBranch', amountBranch);
+                branch_itemList.setAttribute('stockAmount', stockAmount);
+                branch_itemList.setAttribute('stockPrice', stockPrice);
+                branch_itemList.setAttribute('productId', productId);
+                document.getElementById("branch_list" + productId).appendChild(branch_itemList);
+                
+                    var branch_list_name = document.createElement("input"); 
+                    branch_list_name.id = "branch_list_name" + productId + branchId;
+                    branch_list_name.className = "branch_list_name";
+                    branch_list_name.name = "branch_list_name" + productId + branchId;
+                    branch_list_name.disabled = false;
+                    branch_list_name.value = branchName;
+                    document.getElementById("branch_itemList" + productId + branchId).appendChild(branch_list_name);
+                    
+                    var branch_list_stockAmount = document.createElement("input"); 
+                    branch_list_stockAmount.id = "branch_list_stockAmount" + productId + branchId;
+                    branch_list_stockAmount.className = "branch_list_stockAmount";
+                    branch_list_stockAmount.name = "branch_list_stockAmount" + productId + branchId;
+                    branch_list_stockAmount.disabled = false;
+                    branch_list_stockAmount.value = stockAmount;
+                    branch_list_stockAmount.type = "number";
+                    branch_list_stockAmount.setAttribute('original_stockAmount', stockAmount); 
+                    document.getElementById("branch_itemList" + productId + branchId).appendChild(branch_list_stockAmount);
+
+                        var confirm_stockAmount = document.createElement("img"); 
+                        confirm_stockAmount.id = "confirm_stockAmount" + productId + branchId;
+                        confirm_stockAmount.className = "confirm_stockAmount";
+                        confirm_stockAmount.src = "files/images/icons/confirm.png";
+                        confirm_stockAmount.alt = "_";
+                        document.getElementById("branch_itemList" + productId + branchId).appendChild(confirm_stockAmount);
+
+                        var decline_stockAmount = document.createElement("img"); 
+                        decline_stockAmount.id = "decline_stockAmount" + productId + branchId;
+                        decline_stockAmount.className = "decline_stockAmount";
+                        decline_stockAmount.src = "files/images/icons/decline.png";
+                        decline_stockAmount.alt = "_";
+                        document.getElementById("branch_itemList" + productId + branchId).appendChild(decline_stockAmount);
+
+                    var branch_list_stockPrice = document.createElement("input"); 
+                    branch_list_stockPrice.id = "branch_list_stockPrice" + productId + branchId;
+                    branch_list_stockPrice.className = "branch_list_stockPrice";
+                    branch_list_stockPrice.name = "branch_list_stockPrice" + productId + branchId;
+                    branch_list_stockPrice.disabled = false;
+                    branch_list_stockPrice.value = stockPrice;
+                    branch_list_stockPrice.type = "number";
+                    branch_list_stockPrice.setAttribute('original_stockPrice', stockPrice); 
+                    document.getElementById("branch_itemList" + productId + branchId).appendChild(branch_list_stockPrice);
+                    
+                        var confirm_stockPrice = document.createElement("img"); 
+                        confirm_stockPrice.id = "confirm_stockPrice" + productId + branchId;
+                        confirm_stockPrice.className = "confirm_stockPrice";
+                        confirm_stockPrice.src = "files/images/icons/confirm.png";
+                        confirm_stockPrice.alt = "_";
+                        document.getElementById("branch_itemList" + productId + branchId).appendChild(confirm_stockPrice);
+
+                        var decline_stockPrice = document.createElement("img"); 
+                        decline_stockPrice.id = "decline_stockPrice" + productId + branchId;
+                        decline_stockPrice.className = "decline_stockPrice";
+                        decline_stockPrice.src = "files/images/icons/decline.png";
+                        decline_stockPrice.alt = "_";
+                        document.getElementById("branch_itemList" + productId + branchId).appendChild(decline_stockPrice);
+                    
+                $("#branch_itemList" + productId + branchId)
+                .click(function () {
+                    var branchId_data = $(this).attr('branchId');
+                    var branchName_data = $(this).attr('branchName');
+                    var branchAddress_data = $(this).attr('branchAddress');
+                    var branchTelephone_data = $(this).attr('branchTelephone');
+                    var branchCellphone_data = $(this).attr('branchCellphone');
+                    var branchAditionalInformation_data = $(this).attr('branchAditionalInformation');
+                    var cityName_data = $(this).attr('cityName');
+                    var countryName_data = $(this).attr('countryName');
+                    var amountBranch_data = $(this).attr('amountBranch');
+                    var stockAmount_data = $(this).attr('stockAmount');
+                    var stockPrice_data = $(this).attr('stockPrice');
+                    var productId_data = $(this).attr('productId');
+
+                    draw_branchInfo(
+                        branchId_data, 
+                        branchName_data, 
+                        branchAddress_data, 
+                        branchTelephone_data, 
+                        branchCellphone_data, 
+                        branchAditionalInformation_data, 
+                        cityName_data, 
+                        countryName_data, 
+                        amountBranch_data, 
+                        stockAmount_data, 
+                        stockPrice_data, 
+                        productId_data
+                    );
+                });
+
+                $("#branch_list_stockAmount" + productId + branchId)
+                .keyup(function () {
+
+                    var branchId_data = $(this).parents('div').attr('branchId');
+                    var productId_data = $(this).parents('div').attr('productId');
+
+                    var current_stockAmount = document.getElementById("branch_list_stockAmount" + productId_data + branchId_data).value;
+                    var original_stockAmount = $("#branch_list_stockAmount" + productId_data + branchId_data).attr('original_stockAmount');
+                    
+                    if (original_stockAmount !== current_stockAmount)
+                    {
+                        document.getElementById("branch_list_stockAmount" + productId_data + branchId_data).style.backgroundColor = "orange";
+                        document.getElementById("confirm_stockAmount" + productId_data + branchId_data).style.display = "block";
+                        document.getElementById("decline_stockAmount" + productId_data + branchId_data).style.display = "block";
+                    } else
+                    {
+                        document.getElementById("branch_list_stockAmount" + productId_data + branchId_data).style.backgroundColor = "transparent";
+                        document.getElementById("confirm_stockAmount" + productId_data + branchId_data).style.display = "none";
+                        document.getElementById("decline_stockAmount" + productId_data + branchId_data).style.display = "none";
+                    }
+
+                })
+                .mouseover(function () {
+
+                    var branchId_data = $(this).parents('div').attr('branchId');
+                    var productId_data = $(this).parents('div').attr('productId');
+                    
+                    var current_stockAmount = document.getElementById("branch_list_stockAmount" + productId_data + branchId_data).value;
+                    var original_stockAmount = $("#branch_list_stockAmount" + productId_data + branchId_data).attr('original_stockAmount');
+                    
+                    if (original_stockAmount !== current_stockAmount)
+                    {
+                        document.getElementById("branch_list_stockAmount" + productId_data + branchId_data).style.backgroundColor = "orange";
+                        document.getElementById("confirm_stockAmount" + productId_data + branchId_data).style.display = "block";
+                        document.getElementById("decline_stockAmount" + productId_data + branchId_data).style.display = "block";
+                    } else
+                    {
+                        document.getElementById("branch_list_stockAmount" + productId_data + branchId_data).style.backgroundColor = "white";
+                        document.getElementById("confirm_stockAmount" + productId_data + branchId_data).style.display = "none";
+                        document.getElementById("decline_stockAmount" + productId_data + branchId_data).style.display = "none";
+                    }
+                })
+                .mouseout(function () {
+
+                    var branchId_data = $(this).parents('div').attr('branchId');
+                    var productId_data = $(this).parents('div').attr('productId');
+                    
+                    var current_stockAmount = document.getElementById("branch_list_stockAmount" + productId_data + branchId_data).value;
+                    var original_stockAmount = $("#branch_list_stockAmount" + productId_data + branchId_data).attr('original_stockAmount');
+                    
+                    if (original_stockAmount !== current_stockAmount)
+                    {
+                        document.getElementById("branch_list_stockAmount" + productId_data + branchId_data).style.backgroundColor = "orange";
+                        document.getElementById("confirm_stockAmount" + productId_data + branchId_data).style.display = "block";
+                        document.getElementById("decline_stockAmount" + productId_data + branchId_data).style.display = "block";
+                    } else
+                    {
+                        document.getElementById("branch_list_stockAmount" + productId_data + branchId_data).style.backgroundColor = "transparent";
+                        document.getElementById("confirm_stockAmount" + productId_data + branchId_data).style.display = "none";
+                        document.getElementById("decline_stockAmount" + productId_data + branchId_data).style.display = "none";
+                    }
+                });
+
+                $("#branch_list_stockPrice" + productId + branchId)
+                .keyup(function () {
+
+                    var branchId_data = $(this).parents('div').attr('branchId');
+                    var productId_data = $(this).parents('div').attr('productId');
+
+                    var current_stockPrice = document.getElementById("branch_list_stockPrice" + productId_data + branchId_data).value;
+                    var original_stockPrice = $("#branch_list_stockPrice" + productId_data + branchId_data).attr('original_stockPrice');
+                    
+                    if (original_stockPrice !== current_stockPrice)
+                    {
+                        document.getElementById("branch_list_stockPrice" + productId_data + branchId_data).style.backgroundColor = "orange";
+                        document.getElementById("confirm_stockPrice" + productId_data + branchId_data).style.display = "block";
+                        document.getElementById("decline_stockPrice" + productId_data + branchId_data).style.display = "block";
+                    } else
+                    {
+                        document.getElementById("branch_list_stockPrice" + productId_data + branchId_data).style.backgroundColor = "transparent";
+                        document.getElementById("confirm_stockPrice" + productId_data + branchId_data).style.display = "none";
+                        document.getElementById("decline_stockPrice" + productId_data + branchId_data).style.display = "none";
+                    }
+
+                })
+                .mouseover(function () {
+
+                    var branchId_data = $(this).parents('div').attr('branchId');
+                    var productId_data = $(this).parents('div').attr('productId');
+
+                    var current_stockPrice = document.getElementById("branch_list_stockPrice" + productId_data + branchId_data).value;
+                    var original_stockPrice = $("#branch_list_stockPrice" + productId_data + branchId_data).attr('original_stockPrice');
+                    
+                    if (original_stockPrice !== current_stockPrice)
+                    {
+                        document.getElementById("branch_list_stockPrice" + productId_data + branchId_data).style.backgroundColor = "orange";
+                        document.getElementById("confirm_stockPrice" + productId_data + branchId_data).style.display = "block";
+                        document.getElementById("decline_stockPrice" + productId_data + branchId_data).style.display = "block";
+                    } else
+                    {
+                        document.getElementById("branch_list_stockPrice" + productId_data + branchId_data).style.backgroundColor = "white";
+                        document.getElementById("confirm_stockPrice" + productId_data + branchId_data).style.display = "none";
+                        document.getElementById("decline_stockPrice" + productId_data + branchId_data).style.display = "none";
+                    }
+
+                })
+                .mouseout(function () {
+
+                    var branchId_data = $(this).parents('div').attr('branchId');
+                    var productId_data = $(this).parents('div').attr('productId');
+
+                    var current_stockPrice = document.getElementById("branch_list_stockPrice" + productId_data + branchId_data).value;
+                    var original_stockPrice = $("#branch_list_stockPrice" + productId_data + branchId_data).attr('original_stockPrice');
+                    
+                    if (original_stockPrice !== current_stockPrice)
+                    {
+                        document.getElementById("branch_list_stockPrice" + productId_data + branchId_data).style.backgroundColor = "orange";
+                        document.getElementById("confirm_stockPrice" + productId_data + branchId_data).style.display = "block";
+                        document.getElementById("decline_stockPrice" + productId_data + branchId_data).style.display = "block";
+                    } else
+                    {
+                        document.getElementById("branch_list_stockPrice" + productId_data + branchId_data).style.backgroundColor = "transparent";
+                        document.getElementById("confirm_stockPrice" + productId_data + branchId_data).style.display = "none";
+                        document.getElementById("decline_stockPrice" + productId_data + branchId_data).style.display = "none";
+                    }
+
+                });
+                    
+                $("#confirm_stockAmount" + productId + branchId)
+                .click(function () {
+                    var branchId_data = $(this).parents('div').attr('branchId');
+                    var productId_data = $(this).parents('div').attr('productId');
+                    var stockAmount_data = document.getElementById("branch_list_stockAmount" + productId_data + branchId_data).value;
+                    
+                    confirm_stockAmount_(branchId_data, productId_data, stockAmount_data);
+                    $("#branch_list_stockAmount" + productId_data + branchId_data).attr('original_stockAmount', stockAmount_data);
+                    
+                    var current_stockAmount = document.getElementById("branch_list_stockAmount" + productId_data + branchId_data).value;
+                    var original_stockAmount = $("#branch_list_stockAmount" + productId_data + branchId_data).attr('original_stockAmount');
+                    
+                    if (original_stockAmount !== current_stockAmount)
+                    {
+                        document.getElementById("branch_list_stockAmount" + productId_data + branchId_data).style.backgroundColor = "orange";
+                        document.getElementById("confirm_stockAmount" + productId_data + branchId_data).style.display = "block";
+                        document.getElementById("decline_stockAmount" + productId_data + branchId_data).style.display = "block";
+                    } else
+                    {
+                        document.getElementById("branch_list_stockAmount" + productId_data + branchId_data).style.backgroundColor = "transparent";
+                        document.getElementById("confirm_stockAmount" + productId_data + branchId_data).style.display = "none";
+                        document.getElementById("decline_stockAmount" + productId_data + branchId_data).style.display = "none";
+                    }
+                })
+                .mouseover(function () {
+
+                    var branchId_data = $(this).parents('div').attr('branchId');
+                    var productId_data = $(this).parents('div').attr('productId');
+                    
+                    var current_stockAmount = document.getElementById("branch_list_stockAmount" + productId_data + branchId_data).value;
+                    var original_stockAmount = $("#branch_list_stockAmount" + productId_data + branchId_data).attr('original_stockAmount');
+                    
+                    if (original_stockAmount !== current_stockAmount)
+                    {
+                        document.getElementById("branch_list_stockAmount" + productId_data + branchId_data).style.backgroundColor = "orange";
+                        document.getElementById("confirm_stockAmount" + productId_data + branchId_data).style.display = "block";
+                        document.getElementById("decline_stockAmount" + productId_data + branchId_data).style.display = "block";
+                    } else
+                    {
+                        document.getElementById("branch_list_stockAmount" + productId_data + branchId_data).style.backgroundColor = "white";
+                        document.getElementById("confirm_stockAmount" + productId_data + branchId_data).style.display = "none";
+                        document.getElementById("decline_stockAmount" + productId_data + branchId_data).style.display = "none";
+                    }
+                })
+                .mouseout(function () {
+
+                    var branchId_data = $(this).parents('div').attr('branchId');
+                    var productId_data = $(this).parents('div').attr('productId');
+                    
+                    var current_stockAmount = document.getElementById("branch_list_stockAmount" + productId_data + branchId_data).value;
+                    var original_stockAmount = $("#branch_list_stockAmount" + productId_data + branchId_data).attr('original_stockAmount');
+                    
+                    if (original_stockAmount !== current_stockAmount)
+                    {
+                        document.getElementById("branch_list_stockAmount" + productId_data + branchId_data).style.backgroundColor = "orange";
+                        document.getElementById("confirm_stockAmount" + productId_data + branchId_data).style.display = "block";
+                        document.getElementById("decline_stockAmount" + productId_data + branchId_data).style.display = "block";
+                    } else
+                    {
+                        document.getElementById("branch_list_stockAmount" + productId_data + branchId_data).style.backgroundColor = "transparent";
+                        document.getElementById("confirm_stockAmount" + productId_data + branchId_data).style.display = "none";
+                        document.getElementById("decline_stockAmount" + productId_data + branchId_data).style.display = "none";
+                    }
+                });
+
+                $("#decline_stockAmount" + productId + branchId)
+                .click(function () {
+                    var branchId_data = $(this).parents('div').attr('branchId');
+                    var productId_data = $(this).parents('div').attr('productId');
+
+                    document.getElementById("branch_list_stockAmount" + productId_data + branchId_data).value = 
+                        $("#branch_list_stockAmount" + productId_data + branchId_data).attr('original_stockAmount');
+
+                    var current_stockAmount = document.getElementById("branch_list_stockAmount" + productId_data + branchId_data).value;
+                    var original_stockAmount = $("#branch_list_stockAmount" + productId_data + branchId_data).attr('original_stockAmount');
+                    
+                    if (original_stockAmount !== current_stockAmount)
+                    {
+                        document.getElementById("branch_list_stockAmount" + productId_data + branchId_data).style.backgroundColor = "orange";
+                        document.getElementById("confirm_stockAmount" + productId_data + branchId_data).style.display = "block";
+                        document.getElementById("decline_stockAmount" + productId_data + branchId_data).style.display = "block";
+                    } else
+                    {
+                        document.getElementById("branch_list_stockAmount" + productId_data + branchId_data).style.backgroundColor = "transparent";
+                        document.getElementById("confirm_stockAmount" + productId_data + branchId_data).style.display = "none";
+                        document.getElementById("decline_stockAmount" + productId_data + branchId_data).style.display = "none";
+                    }
+                })
+                .mouseover(function () {
+
+                    var branchId_data = $(this).parents('div').attr('branchId');
+                    var productId_data = $(this).parents('div').attr('productId');
+                    
+                    var current_stockAmount = document.getElementById("branch_list_stockAmount" + productId_data + branchId_data).value;
+                    var original_stockAmount = $("#branch_list_stockAmount" + productId_data + branchId_data).attr('original_stockAmount');
+                    
+                    if (original_stockAmount !== current_stockAmount)
+                    {
+                        document.getElementById("branch_list_stockAmount" + productId_data + branchId_data).style.backgroundColor = "orange";
+                        document.getElementById("confirm_stockAmount" + productId_data + branchId_data).style.display = "block";
+                        document.getElementById("decline_stockAmount" + productId_data + branchId_data).style.display = "block";
+                    } else
+                    {
+                        document.getElementById("branch_list_stockAmount" + productId_data + branchId_data).style.backgroundColor = "white";
+                        document.getElementById("confirm_stockAmount" + productId_data + branchId_data).style.display = "none";
+                        document.getElementById("decline_stockAmount" + productId_data + branchId_data).style.display = "none";
+                    }
+                })
+                .mouseout(function () {
+
+                    var branchId_data = $(this).parents('div').attr('branchId');
+                    var productId_data = $(this).parents('div').attr('productId');
+                    
+                    var current_stockAmount = document.getElementById("branch_list_stockAmount" + productId_data + branchId_data).value;
+                    var original_stockAmount = $("#branch_list_stockAmount" + productId_data + branchId_data).attr('original_stockAmount');
+                    
+                    if (original_stockAmount !== current_stockAmount)
+                    {
+                        document.getElementById("branch_list_stockAmount" + productId_data + branchId_data).style.backgroundColor = "orange";
+                        document.getElementById("confirm_stockAmount" + productId_data + branchId_data).style.display = "block";
+                        document.getElementById("decline_stockAmount" + productId_data + branchId_data).style.display = "block";
+                    } else
+                    {
+                        document.getElementById("branch_list_stockAmount" + productId_data + branchId_data).style.backgroundColor = "transparent";
+                        document.getElementById("confirm_stockAmount" + productId_data + branchId_data).style.display = "none";
+                        document.getElementById("decline_stockAmount" + productId_data + branchId_data).style.display = "none";
+                    }
+                });
+
+                $("#confirm_stockPrice" + productId + branchId)
+                .click(function () { 
+                    var branchId_data = $(this).parents('div').attr('branchId');
+                    var productId_data = $(this).parents('div').attr('productId');
+                    var stockPrice_data = document.getElementById("branch_list_stockPrice" + productId_data + branchId_data).value;
+                    
+                    confirm_stockPrice_(branchId_data, productId_data, stockPrice_data);
+                    $("#branch_list_stockPrice" + productId_data + branchId_data).attr('original_stockPrice', stockPrice_data);
+                    
+                    var current_stockPrice = document.getElementById("branch_list_stockPrice" + productId_data + branchId_data).value;
+                    var original_stockPrice = $("#branch_list_stockPrice" + productId_data + branchId_data).attr('original_stockPrice');
+                    
+                    if (original_stockPrice !== current_stockPrice)
+                    {
+                        document.getElementById("branch_list_stockPrice" + productId_data + branchId_data).style.backgroundColor = "orange";
+                        document.getElementById("confirm_stockPrice" + productId_data + branchId_data).style.display = "block";
+                        document.getElementById("decline_stockPrice" + productId_data + branchId_data).style.display = "block";
+                    } else
+                    {
+                        document.getElementById("branch_list_stockPrice" + productId_data + branchId_data).style.backgroundColor = "transparent";
+                        document.getElementById("confirm_stockPrice" + productId_data + branchId_data).style.display = "none";
+                        document.getElementById("decline_stockPrice" + productId_data + branchId_data).style.display = "none";
+                    }
+
+                })
+                .mouseover(function () {
+
+                    var branchId_data = $(this).parents('div').attr('branchId');
+                    var productId_data = $(this).parents('div').attr('productId');
+
+                    var current_stockPrice = document.getElementById("branch_list_stockPrice" + productId_data + branchId_data).value;
+                    var original_stockPrice = $("#branch_list_stockPrice" + productId_data + branchId_data).attr('original_stockPrice');
+                    
+                    if (original_stockPrice !== current_stockPrice)
+                    {
+                        document.getElementById("branch_list_stockPrice" + productId_data + branchId_data).style.backgroundColor = "orange";
+                        document.getElementById("confirm_stockPrice" + productId_data + branchId_data).style.display = "block";
+                        document.getElementById("decline_stockPrice" + productId_data + branchId_data).style.display = "block";
+                    } else
+                    {
+                        document.getElementById("branch_list_stockPrice" + productId_data + branchId_data).style.backgroundColor = "white";
+                        document.getElementById("confirm_stockPrice" + productId_data + branchId_data).style.display = "none";
+                        document.getElementById("decline_stockPrice" + productId_data + branchId_data).style.display = "none";
+                    }
+                })
+                .mouseout(function () {
+
+                    var branchId_data = $(this).parents('div').attr('branchId');
+                    var productId_data = $(this).parents('div').attr('productId');
+
+                    var current_stockPrice = document.getElementById("branch_list_stockPrice" + productId_data + branchId_data).value;
+                    var original_stockPrice = $("#branch_list_stockPrice" + productId_data + branchId_data).attr('original_stockPrice');
+                    
+                    if (original_stockPrice !== current_stockPrice)
+                    {
+                        document.getElementById("branch_list_stockPrice" + productId_data + branchId_data).style.backgroundColor = "orange";
+                        document.getElementById("confirm_stockPrice" + productId_data + branchId_data).style.display = "block";
+                        document.getElementById("decline_stockPrice" + productId_data + branchId_data).style.display = "block";
+                    } else
+                    {
+                        document.getElementById("branch_list_stockPrice" + productId_data + branchId_data).style.backgroundColor = "transparent";
+                        document.getElementById("confirm_stockPrice" + productId_data + branchId_data).style.display = "none";
+                        document.getElementById("decline_stockPrice" + productId_data + branchId_data).style.display = "none";
+                    }
+
+                });
+
+                $("#decline_stockPrice" + productId + branchId)
+                .click(function () {
+                    var branchId_data = $(this).parents('div').attr('branchId');
+                    var productId_data = $(this).parents('div').attr('productId');
+    
+                    document.getElementById("branch_list_stockPrice" + productId_data + branchId_data).value = 
+                        $("#branch_list_stockPrice" + productId_data + branchId_data).attr('original_stockPrice');
+
+                    var current_stockPrice = document.getElementById("branch_list_stockPrice" + productId_data + branchId_data).value;
+                    var original_stockPrice = $("#branch_list_stockPrice" + productId_data + branchId_data).attr('original_stockPrice');
+                    
+                    if (original_stockPrice !== current_stockPrice)
+                    {
+                        document.getElementById("branch_list_stockPrice" + productId_data + branchId_data).style.backgroundColor = "orange";
+                        document.getElementById("confirm_stockPrice" + productId_data + branchId_data).style.display = "block";
+                        document.getElementById("decline_stockPrice" + productId_data + branchId_data).style.display = "block";
+                    } else
+                    {
+                        document.getElementById("branch_list_stockPrice" + productId_data + branchId_data).style.backgroundColor = "transparent";
+                        document.getElementById("confirm_stockPrice" + productId_data + branchId_data).style.display = "none";
+                        document.getElementById("decline_stockPrice" + productId_data + branchId_data).style.display = "none";
+                    }
+
+                })
+                .mouseover(function () {
+
+                    var branchId_data = $(this).parents('div').attr('branchId');
+                    var productId_data = $(this).parents('div').attr('productId');
+
+                    var current_stockPrice = document.getElementById("branch_list_stockPrice" + productId_data + branchId_data).value;
+                    var original_stockPrice = $("#branch_list_stockPrice" + productId_data + branchId_data).attr('original_stockPrice');
+                    
+                    if (original_stockPrice !== current_stockPrice)
+                    {
+                        document.getElementById("branch_list_stockPrice" + productId_data + branchId_data).style.backgroundColor = "orange";
+                        document.getElementById("confirm_stockPrice" + productId_data + branchId_data).style.display = "block";
+                        document.getElementById("decline_stockPrice" + productId_data + branchId_data).style.display = "block";
+                    } else
+                    {
+                        document.getElementById("branch_list_stockPrice" + productId_data + branchId_data).style.backgroundColor = "white";
+                        document.getElementById("confirm_stockPrice" + productId_data + branchId_data).style.display = "none";
+                        document.getElementById("decline_stockPrice" + productId_data + branchId_data).style.display = "none";
+                    }
+
+                })
+                .mouseout(function () {
+
+                    var branchId_data = $(this).parents('div').attr('branchId');
+                    var productId_data = $(this).parents('div').attr('productId');
+
+                    var current_stockPrice = document.getElementById("branch_list_stockPrice" + productId_data + branchId_data).value;
+                    var original_stockPrice = $("#branch_list_stockPrice" + productId_data + branchId_data).attr('original_stockPrice');
+                    
+                    if (original_stockPrice !== current_stockPrice)
+                    {
+                        document.getElementById("branch_list_stockPrice" + productId_data + branchId_data).style.backgroundColor = "orange";
+                        document.getElementById("confirm_stockPrice" + productId_data + branchId_data).style.display = "block";
+                        document.getElementById("decline_stockPrice" + productId_data + branchId_data).style.display = "block";
+                    } else
+                    {
+                        document.getElementById("branch_list_stockPrice" + productId_data + branchId_data).style.backgroundColor = "transparent";
+                        document.getElementById("confirm_stockPrice" + productId_data + branchId_data).style.display = "none";
+                        document.getElementById("decline_stockPrice" + productId_data + branchId_data).style.display = "none";
+                    }
+
+                });
+
+            }
+            
+            var branch_info = document.createElement("div"); 
+            branch_info.id = "branch_info" + productId;
+            branch_info.className = "branch_info";
+            branch_info.name = "branch_info" + productId;
+            branch_info.disabled = true;
+            document.getElementById("stockAmountDetails" + productId).appendChild(branch_info);            
+
+            $("#branch_info" + productId)
+            .mouseover(function () {
+                var currentDiv = document.getElementById("branch_info" + productId);
+                currentDiv.classList.add("visibleScroll");
+            })
+            .mouseout(function () {
+                var currentDiv = document.getElementById("branch_info" + productId);
+                currentDiv.classList.remove("visibleScroll");
+            });
+            
+        }).fail(function () {
+            alert('ERROR get-branch-ajax');
+        });
+    }
+    
+    function confirm_stockAmount_(branchId_data, productId_data, stockAmount_data)
+    {
+        var form = $('#confirm-stockAmount-ajax');
+        var url = form.attr('action');
+
+        $.post(url, {branchId_data: branchId_data, 
+            productId_data: productId_data, 
+            stockAmount_data: stockAmount_data}, function (data)
+        {
+            {#alert("confirm-stockAmount-ajax");#}
+        }).fail(function () {
+            alert('ERROR confirm-stockAmount-ajax');
+        });
+    }
+    
+    function confirm_stockPrice_(branchId_data, productId_data, stockPrice_data)
+    {
+        var form = $('#confirm-stockPrice-ajax');
+        var url = form.attr('action');
+
+        $.post(url, {branchId_data: branchId_data, 
+            productId_data: productId_data, 
+            stockPrice_data: stockPrice_data}, function (data)
+        {
+            {#alert("confirm-stockPrice-ajax");#}
+        }).fail(function () {
+            alert('ERROR confirm-stockPrice-ajax');
+        });
+    }
+    
+    function draw_branchInfo(
+        branchId, 
+        branchName, 
+        branchAddress, 
+        branchTelephone, 
+        branchCellphone, 
+        branchAditionalInformation, 
+        cityName, 
+        countryName, 
+        amountBranch, 
+        stockAmount, 
+        stockPrice, 
+        productId
+    )
+    {
+        var branch_name = document.createElement("input"); 
+        branch_name.id = "branch_name" + productId;
+        branch_name.className = "branch_info_content";
+        branch_name.value = branchName;
+        branch_name.name = "branch_name" + productId;
+        branch_name.disabled = true;
+
+        var branch_address = document.createElement("input"); 
+        branch_address.id = "branch_address" + productId;
+        branch_address.className = "branch_info_content";
+        branch_address.value = branchAddress;
+        branch_address.name = "branch_address" + productId;
+        branch_address.disabled = true;
+
+        var branch_telephone = document.createElement("input"); 
+        branch_telephone.id = "branch_telephone" + productId;
+        branch_telephone.className = "branch_info_content";
+        branch_telephone.value = branchTelephone;
+        branch_telephone.name = "branch_telephone" + productId;
+        branch_telephone.disabled = true;
+
+        var branch_cellphone = document.createElement("input"); 
+        branch_cellphone.id = "branch_cellphone" + productId;
+        branch_cellphone.className = "branch_info_content";
+        branch_cellphone.value = branchCellphone;
+        branch_cellphone.name = "branch_cellphone" + productId;
+        branch_cellphone.disabled = true;
+
+        var branch_aditionalInfo = document.createElement("input"); 
+        branch_aditionalInfo.id = "branch_aditionalInfo" + productId;
+        branch_aditionalInfo.className = "branch_info_content";
+        branch_aditionalInfo.value = branchAditionalInformation;
+        branch_aditionalInfo.name = "branch_aditionalInfo" + productId;
+        branch_aditionalInfo.disabled = true;
+
+        var branch_cityName = document.createElement("input"); 
+        branch_cityName.id = "branch_cityName" + productId;
+        branch_cityName.className = "branch_info_content";
+        branch_cityName.value = cityName;
+        branch_cityName.name = "branch_cityName" + productId;
+        branch_cityName.disabled = true;
+
+        var branch_countryName = document.createElement("input"); 
+        branch_countryName.id = "branch_countryName" + productId;
+        branch_countryName.className = "branch_info_content";
+        branch_countryName.value = countryName;
+        branch_countryName.name = "branch_countryName" + productId;
+        branch_countryName.disabled = true;
+
+        var branch_stockAmount = document.createElement("input"); 
+        branch_stockAmount.id = "branch_stockAmount" + productId;
+        branch_stockAmount.className = "branch_info_content";
+        branch_stockAmount.value = stockAmount;
+        branch_stockAmount.name = "branch_stockAmount" + productId;
+        branch_stockAmount.disabled = true;
+
+        var branch_stockPrice = document.createElement("input"); 
+        branch_stockPrice.id = "branch_stockPrice" + productId;
+        branch_stockPrice.className = "branch_info_content";
+        branch_stockPrice.value = stockPrice;
+        branch_stockPrice.name = "branch_stockPrice" + productId;
+        branch_stockPrice.disabled = true;
+
+        document.getElementById("branch_info" + productId).innerHTML = "";
+        document.getElementById("branch_info" + productId).appendChild(branch_name);
+        document.getElementById("branch_info" + productId).appendChild(branch_address);
+        document.getElementById("branch_info" + productId).appendChild(branch_telephone);
+        document.getElementById("branch_info" + productId).appendChild(branch_cellphone);
+        document.getElementById("branch_info" + productId).appendChild(branch_aditionalInfo);
+        document.getElementById("branch_info" + productId).appendChild(branch_cityName);
+        document.getElementById("branch_info" + productId).appendChild(branch_countryName);
+        document.getElementById("branch_info" + productId).appendChild(branch_stockAmount);
+        document.getElementById("branch_info" + productId).appendChild(branch_stockPrice);
+    }
+    
+</script>

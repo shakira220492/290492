@@ -1,0 +1,79 @@
+upload_product_form:
+    path:     /uploadProduct
+    defaults: { _controller: UploadProductBundle:Default:uploadProduct }
+    methods:  POST
+    
+update_product_form:
+    path:     /updateProduct
+    defaults: { _controller: UploadProductBundle:Default:updateProduct }
+    methods:  POST
+    
+upload_secondary_images_form:
+    path:     /uploadSecondaryImages
+    defaults: { _controller: UploadProductBundle:Default:uploadSecondaryImages }
+    methods:  POST
+    
+update_secondary_images_form:
+    path:     /updateSecondaryImages
+    defaults: { _controller: UploadProductBundle:Default:updateSecondaryImages }
+    methods:  POST
+    
+get_stock_form:
+    path:     /getStock
+    defaults: { _controller: UploadProductBundle:Default:getStock }
+    methods:  POST
+    
+draw_images_about_stock_form:
+    path:     /drawImagesAboutStock
+    defaults: { _controller: UploadProductBundle:Default:drawImagesAboutStock }
+    methods:  POST
+    
+get_current_artist_information_form:
+    path:     /getCurrentArtistInformation
+    defaults: { _controller: UploadProductBundle:Default:getCurrentArtistInformation }
+    methods:  POST
+    
+get_current_artist_songs_form:
+    path:     /getCurrentArtistSongs
+    defaults: { _controller: UploadProductBundle:Default:getCurrentArtistSongs }
+    methods:  POST
+    
+get_productType_form:
+    path:     /getProductType
+    defaults: { _controller: UploadProductBundle:Default:getProductType }
+    methods:  POST
+    
+insert_keywordProduct_form:
+    path:     /insertKeywordProduct
+    defaults: { _controller: UploadProductBundle:Default:insertKeywordProduct }
+    methods:  POST
+    
+get_branch_city_form:
+    path:     /getBranchCity
+    defaults: { _controller: UploadProductBundle:Branch:getBranchCity }
+    methods:  POST
+    
+get_branch_country_form:
+    path:     /getBranchCountry
+    defaults: { _controller: UploadProductBundle:Branch:getBranchCountry }
+    methods:  POST
+    
+upload_branch_form:
+    path:     /uploadBranch
+    defaults: { _controller: UploadProductBundle:Branch:uploadBranch }
+    methods:  POST
+    
+get_branch_form:
+    path:     /getBranch
+    defaults: { _controller: UploadProductBundle:Stock:getBranch }
+    methods:  POST
+    
+confirm_stockAmount_form:
+    path:     /confirmStockAmount
+    defaults: { _controller: UploadProductBundle:Stock:confirmStockAmount }
+    methods:  POST
+    
+confirm_stockPrice_form:
+    path:     /confirmStockPrice
+    defaults: { _controller: UploadProductBundle:Stock:confirmStockPrice }
+    methods:  POST

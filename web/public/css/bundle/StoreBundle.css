@@ -1,0 +1,278 @@
+.product_position {
+    position: relative;
+    transition-duration: 0.5s;
+    transition-property: all;
+}
+
+.product_frame {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    height: auto;
+    width: auto;
+}
+
+.product_header {
+    height: 70px;
+    width: 100%;
+    /*background-color: green;*/
+    color: white;
+    cursor: pointer;
+}
+
+.product_panel {
+    height: 0px;
+    width: 100%;
+    /*background-color: yellow;*/
+    transition-duration: 0.5s;
+    transition-property: all;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.product_frame_image {
+    position: absolute;
+    width: 100px;
+    height: 70px;
+    top: 0px;
+    left: 0px;
+    /*background-color: red;*/
+}
+
+.product_image {
+    position: absolute;
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.product_frame_information {
+    position: absolute;
+    right: 0px;
+    height: 70px;
+    top: 0px;
+    left: 100px;
+    /*background-color: red;*/
+}
+
+.product_name {
+    position: absolute;
+    height: 20px;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    background-color: transparent;
+    border: 0;
+    color: white;
+}
+
+.product_price {
+    position: absolute;
+    height: 20px;
+    top: 20px;
+    left: 0px;
+    width: 100%;
+    background-color: transparent;
+    border: 0;
+    color: white;
+}
+
+.amount_products
+{
+    position: absolute;
+    top: 40px; 
+    left: 0px; 
+    cursor: text; 
+    /*border-radius: 15px;*/
+    background-color: white;
+    border: 0px;
+    z-index: 3;
+    opacity: 0;
+    width: 40px;
+    color: black;
+}
+
+.buy_product
+{
+    position: absolute;
+    top: 40px; 
+    left: 40px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer; 
+    border-radius: 15px;
+    background-color: white;
+    z-index: 3;
+    opacity: 0;
+}
+
+.selectedproductDate 
+{
+    position: absolute;
+    height: 20px;
+    top: 60px;
+    left: 0px;
+    width: 100%;
+    background-color: transparent;
+    border: 0;
+    color: white;
+    opacity: 0;
+}
+
+.selectedproductAmount 
+{       
+    position: absolute;
+    top: 40px; 
+    left: 0px; 
+    cursor: text; 
+    background-color: white;
+    border: 0px;
+    z-index: 3;
+    opacity: 0;
+    width: 40px;
+    color: black;
+}
+
+.decline_saleItem
+{
+    position: absolute;
+    top: 40px; 
+    left: 40px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer; 
+    border-radius: 15px;
+    background-color: white;
+    z-index: 3;
+    opacity: 0;
+}
+
+
+/*//////////////////////////*/
+
+#product_list_icon {
+    position: absolute; 
+    top: 0px; 
+    left: 0px;
+    width: 30px;
+    height: 30px;
+}
+
+#shopping_list {
+    position: absolute;
+    top: 30px;
+    left: 0px; 
+    right: 0px; 
+    bottom: 0px; 
+    overflow-y: scroll; 
+    overflow-x: hidden;
+    display: inline-block;
+    /*background-color: blue;*/
+}
+
+#search_list {
+    position: absolute;
+    top: 30px;
+    left: 0px; 
+    right: 0px; 
+    bottom: 0px; 
+    overflow-y: scroll; 
+    overflow-x: hidden;
+    display: inline-block;
+    /*background-color: blue;*/
+}
+
+#shopping_environment {
+    position: absolute;
+    top: 30px;
+    left: 0px; 
+    right: 0px; 
+    bottom: 0px; 
+    display: none;
+    overflow-y: scroll; 
+    overflow-x: hidden;
+}
+
+
+
+
+#shoppingCart {
+    position: absolute;
+/*    background-color: white;*/
+    top: 0px;
+    left: 0px;
+    width: 30px;
+    height: 30px;
+/*    color: black;*/
+/*    border-radius: 5px;*/
+}
+
+.productPortrait_
+{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    overflow:hidden;
+    height:120px;
+    width:170px;
+    text-align:center;
+    background-color: white;
+    opacity: 1;
+    transition-property: all;
+    transition-duration: 0.5s;
+    z-index: 1;
+}
+
+.productContaint_
+{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    opacity: 0;
+    transition-property: all;
+    transition-duration: 0.5s;
+    height: 5px;
+    width: 100%;
+    z-index: 2;
+}
+
+
+.deleteSelectedProduct_
+{
+    position: absolute;
+    top: 50px; 
+    right: 10px; 
+    cursor: pointer; 
+    /*border-radius: 15px;*/
+    z-index: 3;
+    opacity: 0;
+}
+
+/*//////////////////////////////////////////////////////////////////////////////////////*/
+
+.selectedProductPortrait_
+{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    overflow:hidden;
+    height:120px;
+    width:170px;
+    text-align:center;
+    background-color: white;
+    opacity: 1;
+    transition-property: all;
+    transition-duration: 0.5s;
+    z-index: 1;
+}
+
+.selectedProductContaint_
+{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    opacity: 0;
+    transition-property: all;
+    transition-duration: 0.5s;
+    height: 5px;
+    width: 100%;
+    z-index: 2;
+}

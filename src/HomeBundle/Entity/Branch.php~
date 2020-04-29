@@ -1,0 +1,81 @@
+<?php
+
+namespace HomeBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Branch
+ *
+ * @ORM\Table(name="branch", indexes={@ORM\Index(name="user_id", columns={"user_id"}), @ORM\Index(name="city_id", columns={"city_id"})})
+ * @ORM\Entity
+ */
+class Branch
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="branch_id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $branchId;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="branch_name", type="string", length=255, nullable=false)
+     */
+    private $branchName;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="branch_address", type="string", length=255, nullable=false)
+     */
+    private $branchAddress;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="branch_telephone", type="integer", nullable=false)
+     */
+    private $branchTelephone;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="branch_cellphone", type="integer", nullable=false)
+     */
+    private $branchCellphone;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="branch_aditional_information", type="text", length=65535, nullable=false)
+     */
+    private $branchAditionalInformation;
+
+    /**
+     * @var \User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="user_id", referencedColumnName="user_id")
+     * })
+     */
+    private $user;
+
+    /**
+     * @var \City
+     *
+     * @ORM\ManyToOne(targetEntity="City")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="city_id", referencedColumnName="city_id")
+     * })
+     */
+    private $city;
+
+
+}
+

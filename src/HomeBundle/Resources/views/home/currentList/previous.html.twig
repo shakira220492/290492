@@ -1,0 +1,71 @@
+<div id='previousIconButton' class='animatedButton'
+     style="position: absolute;
+     height: 30px;
+     width: 30px;
+     top: 0px;
+     left: 0px;
+     z-index: 1;
+     ">
+    <img style='
+         width:30px; 
+         height:30px; 
+         opacity: 0.9;
+         z-index: 1;'  
+         src="files/images/icons/playBanner/previous.png" alt="Mountain View">
+</div>
+
+<script>
+    $('#previousIconButton')
+    .click(function () {
+        showPreviousVideo();
+    });
+        
+    function showPreviousVideo()
+    {
+        var previousPosition = videoOrderPosition_1 - 1;
+        var kindOfList = kindOfList_1;
+        var listId = listId_1;
+        
+        var previousVideo = '#videoFrame_currentList'+previousPosition;
+        
+        var videoId = $(previousVideo).data('id1');
+        var videoName = $(previousVideo).data('id2');
+        var videoDescription = $(previousVideo).data('id3');
+        var videoImage = $(previousVideo).data('id4');
+        var videoContent = $(previousVideo).data('id5');
+        var videoUpdatedate = $(previousVideo).data('id6');
+        var videoAmountViews = $(previousVideo).data('id7');
+        var videoAmountComments = $(previousVideo).data('id8');
+        var videoScore = $(previousVideo).data('id9');
+        var userId = $(previousVideo).data('id11');
+        var userName = $(previousVideo).data('id12');
+
+        if (videoId)
+        {
+            showVideo(
+                videoId,
+                videoName,
+                videoDescription,
+                videoImage,
+                videoContent,
+                videoUpdatedate,
+                videoAmountViews,
+                videoAmountComments,
+                videoScore,
+                userId,
+                userName,
+                kindOfList,
+                listId,
+                previousPosition
+            );
+        } 
+        
+        {#else
+        {
+            alert("no hay menos");
+        }#}
+
+    }
+</script>
+
+

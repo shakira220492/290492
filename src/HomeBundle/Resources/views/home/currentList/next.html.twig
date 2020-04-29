@@ -1,0 +1,72 @@
+<div id='nextIconButton' class='animatedButton'
+     style="position: absolute;
+     height: 30px;
+     width: 30px;
+     top: 0px;
+     right: 0px;
+     z-index: 1;">
+    <img style='
+         width:30px; 
+         height:30px; 
+         opacity: 0.9;
+         z-index: 1;' 
+         src="files/images/icons/playBanner/next.png" alt="Mountain View">
+</div>
+
+<script>
+    $('#nextIconButton')
+    .click(function () {
+        showNextVideo();
+    });
+    
+    function showNextVideo()
+    {
+        var nextPosition = videoOrderPosition_1 + 1;
+        var kindOfList = kindOfList_1;
+        var listId = listId_1;
+        
+        var nextVideo = '#videoFrame_currentList'+nextPosition;
+        
+        var videoId = $(nextVideo).data('id1');
+        var videoName = $(nextVideo).data('id2');
+        var videoDescription = $(nextVideo).data('id3');
+        var videoImage = $(nextVideo).data('id4');
+        var videoContent = $(nextVideo).data('id5');
+        var videoUpdatedate = $(nextVideo).data('id6');
+        var videoAmountViews = $(nextVideo).data('id7');
+        var videoAmountComments = $(nextVideo).data('id8');
+        var videoScore = $(nextVideo).data('id9');
+        var userId = $(nextVideo).data('id11');
+        var userName = $(nextVideo).data('id12');
+
+        if (videoId)
+        {
+            showVideo(
+                videoId,
+                videoName,
+                videoDescription,
+                videoImage,
+                videoContent,
+                videoUpdatedate,
+                videoAmountViews,
+                videoAmountComments,
+                videoScore,
+                userId,
+                userName,
+                kindOfList,
+                listId,
+                nextPosition
+            );
+        }
+        
+        {#else
+        {
+            alert("no hay más");
+        }#}
+
+
+
+
+
+    }
+</script>

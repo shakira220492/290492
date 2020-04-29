@@ -1,0 +1,227 @@
+{{ form_start(get_current_list_form_ajax, { 'attr' : {'novalidate': 'novalidate', 'role' : 'form', 'id': 'get-current-list-ajax'|default('form')} }) }}
+{{ form_end(get_current_list_form_ajax) }}
+
+<style>
+    
+    #currentList_title {
+        position: absolute;
+        position: absolute;
+        left: 40px;
+        right: 40px;
+        top: 0px;
+        height: 30px;
+        z-index: 2;
+        font-weight: 900;
+    }
+    
+    #currentList_content {
+        position: absolute;
+        left: 40px;
+        right: 40px;
+        top: 30px;
+        bottom: 0px;
+        z-index: 2;
+        background-color: rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        color: white;
+        font-weight: 900;
+    }
+    
+    .videoContaint_currentList
+    {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        opacity: 1;
+        transition-property: all;
+        transition-duration: 0.5s;
+        height: 100%;
+        width: 100%;
+    }
+    
+    .videoContaint_currentList_background
+    {
+        background-color: #ccc;
+        color: red;
+        font-weight: bolder;
+    }
+    
+    .videoContaint_currentList_highlight
+    {
+        background-color: #ccc;
+        font-weight: bolder;
+    }
+    
+    
+</style>
+
+<div id="currentList_title">
+    
+</div>
+
+<div id="currentList_content">
+</div>
+
+<script>
+    $("#currentList_content")
+    .mouseover(function () {
+        var currentList_content = document.getElementById("currentList_content");
+        currentList_content.classList.add("visibleScroll");
+    })
+    .mouseout(function () {
+        var currentList_content = document.getElementById("currentList_content");
+        currentList_content.classList.remove("visibleScroll");
+    });
+    
+    
+    function drawCurrentList(kindOfList, listId)
+    {
+        if (kindOfList_1 !== kindOfList || listId_1 !== listId)
+        {
+            kindOfList_1 = kindOfList;
+            listId_1 = listId;
+            getCurrentList(kindOfList, listId);
+            {#alert("kindOfList: "+kindOfList+" listId: "+listId);#}
+        } else
+        {
+            highlight_currentVideo();
+        }
+    }
+    
+    function getCurrentList(kindOfList, listId)
+    {
+        var form = $('#get-current-list-ajax');
+        var url = form.attr('action');
+
+        $.post(url, {kindOfList: kindOfList, listId: listId}, function (data)
+        {
+            var amountVideos = data[0].amountVideos;
+            var positionList = 0;
+            
+            document.getElementById("currentList_title").innerHTML = kindOfList+": "+listId;
+            document.getElementById("currentList_content").innerHTML = "";
+            
+            for (i=0; i<amountVideos; i++)
+            {
+                var videoId = data[i].videoId;
+                var videoName = data[i].videoName;
+                var videoDescription = data[i].videoDescription;
+                var videoImage = data[i].videoImage;
+                var videoContent = data[i].videoContent;
+                var videoUpdatedate = data[i].videoUpdatedate;
+                var videoAmountViews = data[i].videoAmountViews;
+                var videoAmountComments = data[i].videoAmountComments;
+                var videoScore = data[i].videoScore;
+                var userId = data[i].userId;
+                var userName = data[i].userName;
+                var amountVideos = data[i].amountVideos;
+                
+
+                if (videoId === "_")
+                {
+                    
+                } else
+                {
+                    positionList++;
+            
+                    $("#currentList_content").append(
+                        "<div id='videoFrame_currentList"+positionList+"' style='position: relative; width:100%; cursor: pointer;' "
+                            +" data-id1='"+videoId+"'"
+                            +" data-id2='"+videoName+"'"
+                            +" data-id3='"+videoDescription+"'"
+                            +" data-id4='"+videoImage+"'"
+                            +" data-id5='"+videoContent+"'"
+                            +" data-id6='"+videoUpdatedate+"'"
+                            +" data-id7='"+videoAmountViews+"'"
+                            +" data-id8='"+videoAmountComments+"'"
+                            +" data-id9='"+videoScore+"'"
+                            +" data-id10='0'"
+                            +" data-id11='"+userId+"'"
+                            +" data-id12='"+userName+"'"
+                            +" data-id13='"+amountVideos+"'"
+                            +" data-id14='0'"
+                            +" data-id15='"+positionList+"'"
+                            +">"
+
+                            +"<table border='0' width='100%'>"
+                            +"<tr height='20px'>"
+                                +"<td width='170px' height='20px'>"
+                                    +"<div id='videoContaint_currentList"+positionList+"' class='videoContaint_currentList'>"
+                                        +positionList+" - "+videoName+"<br>"
+                                    +"</div>"
+                                +"</td>"
+                            +"</tr>"
+                            +"</table>"
+
+                        +"</div>"
+                    );
+
+                    $('#videoFrame_currentList'+positionList)
+                    .click(function () {
+                        var videoId = $(this).data('id1');
+                        var videoName = $(this).data('id2');
+                        var videoDescription = $(this).data('id3');
+                        var videoImage = $(this).data('id4');
+                        var videoContent = $(this).data('id5');
+                        var videoUpdatedate = $(this).data('id6');
+                        var videoAmountViews = $(this).data('id7');
+                        var videoAmountComments = $(this).data('id8');
+                        var videoScore = $(this).data('id9');
+                        var userId = $(this).data('id11');
+                        var userName = $(this).data('id12');
+                        var amountVideos = $(this).data('id13');
+                        var videoOrderPosition = $(this).data('id15');
+
+                        showVideo(
+                            videoId,
+                            videoName,
+                            videoDescription,
+                            videoImage,
+                            videoContent,
+                            videoUpdatedate,
+                            videoAmountViews,
+                            videoAmountComments,
+                            videoScore,
+                            userId,
+                            userName,
+                            kindOfList,
+                            listId,
+                            videoOrderPosition
+                        );
+                    })
+                    .mouseover(function () {
+                        var positionList = $(this).data('id15');
+                        var videoContaint_currentListId = "videoContaint_currentList"+positionList;
+                        var videoContaint_currentList = document.getElementById(videoContaint_currentListId);
+                        videoContaint_currentList.classList.add("videoContaint_currentList_highlight");
+                    })
+                    .mouseout(function () {
+                        var positionList = $(this).data('id15');
+                        var videoContaint_currentListId = "videoContaint_currentList"+positionList;
+                        var videoContaint_currentList = document.getElementById(videoContaint_currentListId);
+                        videoContaint_currentList.classList.remove("videoContaint_currentList_highlight");
+                    });
+                }
+            }
+            highlight_currentVideo();
+{#            alert("get-current-list-ajax... ");#}
+        }).fail(function () {
+            alert('ERROR get-current-list-ajax');
+        });
+    }
+    
+    function highlight_currentVideo()
+    {
+        var before_positionList = before_videoOrderPosition_1;    
+        var before_videoContaint_currentListId = "videoContaint_currentList"+before_positionList;
+        var before_videoContaint_currentList = document.getElementById(before_videoContaint_currentListId);
+        before_videoContaint_currentList.classList.remove("videoContaint_currentList_background");
+        
+        var now_positionList = videoOrderPosition_1;
+        var videoContaint_currentListId = "videoContaint_currentList"+now_positionList;
+        var videoContaint_currentList_23 = document.getElementById(videoContaint_currentListId);
+        videoContaint_currentList_23.classList.add("videoContaint_currentList_background");
+    }
+</script>

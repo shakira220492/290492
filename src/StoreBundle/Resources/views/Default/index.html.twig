@@ -1,0 +1,52 @@
+<style>
+    #shoppingCart_environment {
+        position: absolute;
+        display: none;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+    }
+    
+    #searchList_environment {
+        position: absolute;
+        display: none;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+    }
+    
+    #availableRoutes_environment {
+        position: absolute;
+        display: block;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+    }
+</style>
+
+
+<div id="shoppingCart_environment">
+    {{ include('@Store/Default/shoppingCart_environment.html.twig') }}
+</div>
+
+<div id="searchList_environment">
+    {{ include('@Store/Default/searchList_environment.html.twig') }}
+</div>
+
+<div id="availableRoutes_environment">
+    {{ include('@Store/Default/availableRoutes_environment.html.twig') }}
+</div>
+
+
+    {{ include('@Store/Default/storetest.html.twig') }}
+
+<script>
+    function StoreBundle()
+    {
+        getSelectedProducts(); // StoreBundle->shoppingCart_environment.html
+        identifyKeyword(); // StoreBundle->searchList_environment.html
+    }
+</script>

@@ -1,0 +1,357 @@
+{{ form_start(get_score_video_form_ajax, { 'attr' : {'novalidate': 'novalidate', 'role' : 'form', 'id': 'get-score-video-ajax'|default('form')} }) }}
+{{ form_end(get_score_video_form_ajax) }}
+
+{{ form_start(set_score_video_form_ajax, { 'attr' : {'novalidate': 'novalidate', 'role' : 'form', 'id': 'set-score-video-ajax'|default('form')} }) }}
+{{ form_end(set_score_video_form_ajax) }}
+       
+{{ form_start(get_personal_score_video_form_ajax, { 'attr' : {'novalidate': 'novalidate', 'role' : 'form', 'id': 'get-personal-score-video-ajax'|default('form')} }) }}
+{{ form_end(get_personal_score_video_form_ajax) }}
+       
+{{ form_start(set_personal_score_video_form_ajax, { 'attr' : {'novalidate': 'novalidate', 'role' : 'form', 'id': 'set-personal-score-video-ajax'|default('form')} }) }}
+{{ form_end(set_personal_score_video_form_ajax) }}
+       
+<style>
+
+    #excellent_video {
+        position: absolute; 
+        top: 10px;
+        left: 220px;
+        z-index: 1;
+    }
+    
+    #outstanding_video {
+        position: absolute; 
+        top: 10px;
+        left: 205px;
+        z-index: 1;
+    }
+    
+    #acceptable_video {
+        position: absolute; 
+        top: 10px;
+        left: 190px;
+        z-index: 1;
+    }
+    
+    #insufficient_video {
+        position: absolute; 
+        top: 10px;
+        left: 175px;
+        z-index: 1;
+    }
+    
+    #deficient_video {
+        position: absolute; 
+        top: 10px;
+        left: 160px;
+        z-index: 1;
+    }
+    
+    .scoreVideo {
+        position: absolute;
+        width: 15px;
+        height: 15px;
+        opacity: 0.5;
+        transition-property: all;
+        transition-duration: 0.6s;
+    }
+    
+</style>
+{{ include('@Video/Default/draw_score.html.twig') }}
+
+<div id="scoreSection">
+
+    <div id="excellent_video" class="scoreVideo">
+        <img 
+            style='height: 100%; width: 100%;' 
+            src='files/images/icons/video/on.png' 
+            alt='Mountain View'>
+    </div>
+    <div id="outstanding_video" class="scoreVideo">
+        <img 
+            style='height: 100%; width: 100%;' 
+            src='files/images/icons/video/on.png' 
+            alt='Mountain View'>
+    </div>
+    <div id="acceptable_video" class="scoreVideo">
+        <img 
+            style='height: 100%; width: 100%;' 
+            src='files/images/icons/video/on.png' 
+            alt='Mountain View'>
+    </div>
+    <div id="insufficient_video" class="scoreVideo">
+        <img 
+            style='height: 100%; width: 100%;' 
+            src='files/images/icons/video/on.png' 
+            alt='Mountain View'>
+    </div>
+    <div id="deficient_video" class="scoreVideo">
+        <img 
+            style='height: 100%; width: 100%;' 
+            src='files/images/icons/video/on.png' 
+            alt='Mountain View'>
+    </div>
+    
+</div>
+
+
+
+
+<script>
+    
+    function getScoreVideo()
+    {
+        var form = $('#get-score-video-ajax');
+        var url = form.attr('action');
+
+        $.post(url, {current_video_id: current_video_id}, function (data)
+        {
+            {#alert("get-score-video-ajax");#}
+            
+            score_video = data[0].video_score;
+            
+            if (score_video <= 40000000 && score_video >= 30000001)
+            {
+                document.getElementById("excellent_video").innerHTML = 
+                    "<img "+
+                    "style='height: 100%; width: 100%;' "+
+                    "src='files/images/icons/video/on.png' "+
+                    "alt='Mountain View'>";
+                document.getElementById("outstanding_video").innerHTML = 
+                    "<img "+
+                    "style='height: 100%; width: 100%;' "+
+                    "src='files/images/icons/video/on.png' "+
+                    "alt='Mountain View'>";
+                document.getElementById("acceptable_video").innerHTML = 
+                    "<img "+
+                    "style='height: 100%; width: 100%;' "+
+                    "src='files/images/icons/video/on.png' "+
+                    "alt='Mountain View'>";
+                document.getElementById("insufficient_video").innerHTML = 
+                    "<img "+
+                    "style='height: 100%; width: 100%;' "+
+                    "src='files/images/icons/video/on.png' "+
+                    "alt='Mountain View'>";
+                document.getElementById("deficient_video").innerHTML = 
+                    "<img "+
+                    "style='height: 100%; width: 100%;' "+
+                    "src='files/images/icons/video/on.png' "+
+                    "alt='Mountain View'>";
+            } else if (score_video <= 30000000 && score_video >= 20000001)
+            {
+                document.getElementById("excellent_video").innerHTML = 
+                    "<img "+
+                    "style='height: 100%; width: 100%;' "+
+                    "src='files/images/icons/video/off.png' "+
+                    "alt='Mountain View'>";
+                document.getElementById("outstanding_video").innerHTML = 
+                    "<img "+
+                    "style='height: 100%; width: 100%;' "+
+                    "src='files/images/icons/video/on.png' "+
+                    "alt='Mountain View'>";
+                document.getElementById("acceptable_video").innerHTML = 
+                    "<img "+
+                    "style='height: 100%; width: 100%;' "+
+                    "src='files/images/icons/video/on.png' "+
+                    "alt='Mountain View'>";
+                document.getElementById("insufficient_video").innerHTML = 
+                    "<img "+
+                    "style='height: 100%; width: 100%;' "+
+                    "src='files/images/icons/video/on.png' "+
+                    "alt='Mountain View'>";
+                document.getElementById("deficient_video").innerHTML = 
+                    "<img "+
+                    "style='height: 100%; width: 100%;' "+
+                    "src='files/images/icons/video/on.png' "+
+                    "alt='Mountain View'>";
+            } else if (score_video <= 20000000 && score_video >= 10000001)
+            {
+                document.getElementById("excellent_video").innerHTML = 
+                    "<img "+
+                    "style='height: 100%; width: 100%;' "+
+                    "src='files/images/icons/video/off.png' "+
+                    "alt='Mountain View'>";
+                document.getElementById("outstanding_video").innerHTML = 
+                    "<img "+
+                    "style='height: 100%; width: 100%;' "+
+                    "src='files/images/icons/video/off.png' "+
+                    "alt='Mountain View'>";
+                document.getElementById("acceptable_video").innerHTML = 
+                    "<img "+
+                    "style='height: 100%; width: 100%;' "+
+                    "src='files/images/icons/video/on.png' "+
+                    "alt='Mountain View'>";
+                document.getElementById("insufficient_video").innerHTML = 
+                    "<img "+
+                    "style='height: 100%; width: 100%;' "+
+                    "src='files/images/icons/video/on.png' "+
+                    "alt='Mountain View'>";
+                document.getElementById("deficient_video").innerHTML = 
+                    "<img "+
+                    "style='height: 100%; width: 100%;' "+
+                    "src='files/images/icons/video/on.png' "+
+                    "alt='Mountain View'>";
+            } else if (score_video <= 10000000 && score_video >= 1)
+            {
+                document.getElementById("excellent_video").innerHTML = 
+                    "<img "+
+                    "style='height: 100%; width: 100%;' "+
+                    "src='files/images/icons/video/off.png' "+
+                    "alt='Mountain View'>";
+                document.getElementById("outstanding_video").innerHTML = 
+                    "<img "+
+                    "style='height: 100%; width: 100%;' "+
+                    "src='files/images/icons/video/off.png' "+
+                    "alt='Mountain View'>";
+                document.getElementById("acceptable_video").innerHTML = 
+                    "<img "+
+                    "style='height: 100%; width: 100%;' "+
+                    "src='files/images/icons/video/off.png' "+
+                    "alt='Mountain View'>";
+                document.getElementById("insufficient_video").innerHTML = 
+                    "<img "+
+                    "style='height: 100%; width: 100%;' "+
+                    "src='files/images/icons/video/on.png' "+
+                    "alt='Mountain View'>";
+                document.getElementById("deficient_video").innerHTML = 
+                    "<img "+
+                    "style='height: 100%; width: 100%;' "+
+                    "src='files/images/icons/video/on.png' "+
+                    "alt='Mountain View'>";
+            } else 
+            {
+                document.getElementById("excellent_video").innerHTML = 
+                    "<img "+
+                    "style='height: 100%; width: 100%;' "+
+                    "src='files/images/icons/video/off.png' "+
+                    "alt='Mountain View'>";
+                document.getElementById("outstanding_video").innerHTML = 
+                    "<img "+
+                    "style='height: 100%; width: 100%;' "+
+                    "src='files/images/icons/video/off.png' "+
+                    "alt='Mountain View'>";
+                document.getElementById("acceptable_video").innerHTML = 
+                    "<img "+
+                    "style='height: 100%; width: 100%;' "+
+                    "src='files/images/icons/video/off.png' "+
+                    "alt='Mountain View'>";
+                document.getElementById("insufficient_video").innerHTML = 
+                    "<img "+
+                    "style='height: 100%; width: 100%;' "+
+                    "src='files/images/icons/video/off.png' "+
+                    "alt='Mountain View'>";
+                document.getElementById("deficient_video").innerHTML = 
+                    "<img "+
+                    "style='height: 100%; width: 100%;' "+
+                    "src='files/images/icons/video/on.png' "+
+                    "alt='Mountain View'>";
+            }
+            
+        }).fail(function () {
+            alert('ERROR get-score-video-ajax');
+        });
+    }
+    
+    function getPersonalScoreVideo()
+    { 
+        var form = $('#get-personal-score-video-ajax');
+        var url = form.attr('action');
+
+        $.post(url, {current_video_id: current_video_id}, function (data)
+        {
+            score_video = data[0].videoscorePunctuation;
+            videoscoreDate = data[0].videoscoreDate;
+    
+            {#alert(".... get-personal-score-video-ajax "+
+                  "\nvideoscorePunctuation: "+score_video+
+                  "\nvideoscoreDate: "+videoscoreDate);#}
+            
+            if (score_video <= 40000000 && score_video >= 30000001)
+            {
+                document.getElementById("excellent_video").style.opacity = 1;
+                document.getElementById("outstanding_video").style.opacity = 1;
+                document.getElementById("acceptable_video").style.opacity = 1;
+                document.getElementById("insufficient_video").style.opacity = 1;
+                document.getElementById("deficient_video").style.opacity = 1;
+            {#alert("get-personal-score-video-ajax "+
+                  "\nvideoscorePunctuation: "+score_video+
+                  "\nvideoscoreDate: "+videoscoreDate);#}
+            } else if (score_video <= 30000000 && score_video >= 20000001)
+            {
+                document.getElementById("excellent_video").style.opacity = 0.5;
+                document.getElementById("outstanding_video").style.opacity = 1;
+                document.getElementById("acceptable_video").style.opacity = 1;
+                document.getElementById("insufficient_video").style.opacity = 1;
+                document.getElementById("deficient_video").style.opacity = 1;
+            {#alert("get-personal-score-video-ajax "+
+                  "\nvideoscorePunctuation: "+score_video+
+                  "\nvideoscoreDate: "+videoscoreDate);#}
+            } else if (score_video <= 20000000 && score_video >= 10000001)
+            {
+                document.getElementById("excellent_video").style.opacity = 0.5;
+                document.getElementById("outstanding_video").style.opacity = 0.5;
+                document.getElementById("acceptable_video").style.opacity = 1;
+                document.getElementById("insufficient_video").style.opacity = 1;
+                document.getElementById("deficient_video").style.opacity = 1;
+            {#alert("get-personal-score-video-ajax "+
+                  "\nvideoscorePunctuation: "+score_video+
+                  "\nvideoscoreDate: "+videoscoreDate);#}
+            } else if (score_video <= 10000000 && score_video >= 1)
+            {
+                document.getElementById("excellent_video").style.opacity = 0.5;
+                document.getElementById("outstanding_video").style.opacity = 0.5;
+                document.getElementById("acceptable_video").style.opacity = 0.5;
+                document.getElementById("insufficient_video").style.opacity = 1;
+                document.getElementById("deficient_video").style.opacity = 1;
+            {#alert("get-personal-score-video-ajax "+
+                  "\nvideoscorePunctuation: "+score_video+
+                  "\nvideoscoreDate: "+videoscoreDate);#}
+            } else
+            {
+                document.getElementById("excellent_video").style.opacity = 0.5;
+                document.getElementById("outstanding_video").style.opacity = 0.5;
+                document.getElementById("acceptable_video").style.opacity = 0.5;
+                document.getElementById("insufficient_video").style.opacity = 0.5;
+                document.getElementById("deficient_video").style.opacity = 1;
+            {#alert("get-personal-score-video-ajax "+
+                  "\nvideoscorePunctuation: "+score_video+
+                  "\nvideoscoreDate: "+videoscoreDate);#}
+            }
+            
+        }).fail(function () {
+            alert('ERROR get-personal-score-video-ajax');
+        });
+    }
+    
+    function setScoreVideo(score_video)
+    {
+        var form = $('#set-score-video-ajax');
+        var url = form.attr('action');
+
+        $.post(url, {current_video_id: current_video_id, score_video: score_video}, function (data)
+        {
+            alert("set-score-video-ajax");
+        }).fail(function () {
+            alert('ERROR set-score-video-ajax');
+        });
+    }
+    
+    function setPersonalScoreVideo(score_video)
+    {
+        var form = $('#set-personal-score-video-ajax');
+        var url = form.attr('action');
+
+        $.post(url, {current_video_id: current_video_id, score_video: score_video}, function (data)
+        {
+            videoscorePunctuation = data[0].videoscorePunctuation;
+            videoscoreDate = data[0].videoscoreDate;
+            
+            alert("set-personal-score-video-ajax "+
+                  "\nvideoscorePunctuation: "+videoscorePunctuation+
+                  "\nvideoscoreDate: "+videoscoreDate);
+        }).fail(function () {
+            alert('ERROR set-personal-score-video-ajax');
+        });
+    }
+    
+</script>

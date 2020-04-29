@@ -1,0 +1,835 @@
+{{ form_start(upload_product_form_ajax, { 'attr' : {'novalidate': 'novalidate', 'role' : 'form', 'id': 'upload-product-ajax'|default('form')} }) }}
+{{ form_end(upload_product_form_ajax) }}
+
+{{ form_start(update_product_form_ajax, { 'attr' : {'novalidate': 'novalidate', 'role' : 'form', 'id': 'update-product-ajax'|default('form')} }) }}
+{{ form_end(update_product_form_ajax) }}
+
+{{ form_start(update_secondary_images_form_ajax, { 'attr' : {'novalidate': 'novalidate', 'role' : 'form', 'id': 'update-secondary-images-ajax'|default('form')} }) }}
+{{ form_end(update_secondary_images_form_ajax) }}
+
+{{ form_start(upload_secondary_images_form_ajax, { 'attr' : {'novalidate': 'novalidate', 'role' : 'form', 'id': 'upload-secondary-images-ajax'|default('form')} }) }}
+{{ form_end(upload_secondary_images_form_ajax) }}
+
+{{ form_start(get_current_artist_information_form_ajax, { 'attr' : {'novalidate': 'novalidate', 'role' : 'form', 'id': 'get-current-artist-information-ajax'|default('form')} }) }}
+{{ form_end(get_current_artist_information_form_ajax) }}
+
+{{ form_start(get_current_artist_songs_form_ajax, { 'attr' : {'novalidate': 'novalidate', 'role' : 'form', 'id': 'get-current-artist-songs-ajax'|default('form')} }) }}
+{{ form_end(get_current_artist_songs_form_ajax) }}
+
+{{ form_start(get_productType_form_ajax, { 'attr' : {'novalidate': 'novalidate', 'role' : 'form', 'id': 'get-productType-ajax'|default('form')} }) }}
+{{ form_end(get_productType_form_ajax) }}
+
+{{ form_start(insert_keywordProduct_form_ajax, { 'attr' : {'novalidate': 'novalidate', 'role' : 'form', 'id': 'insert-keywordProduct-ajax'|default('form')} }) }}
+{{ form_end(insert_keywordProduct_form_ajax) }}
+
+
+<div id="formUploadProduct">
+
+    <div id="contentUploadProduct">
+        <form id="uploadProduct">
+            
+            <div id="productName_uploadProductDiv">
+                Product's Name:
+            </div>
+            <input type="text" id="productName_uploadProductInput" name="productName_uploadProductInput" placeholder=""/>
+
+            <div id="productPrice_uploadProductDiv">
+                Product's Price:
+            </div>
+            <input type="number" id="productPrice_uploadProductInput" name="productPrice_uploadProductInput" placeholder=""/>
+
+            <div id="productDescription_uploadProductDiv">
+                Product's Description:
+            </div>
+            <textarea 
+            id='productDescription_uploadProductTextarea' name='productDescription_uploadProductTextarea'></textarea>
+            
+            <div id="productImage_uploadProductDiv">
+                Product's Image:
+            </div>
+            <input type="file" id="productImage_uploadProductInput" name="productImage_uploadProductInput" accept="image/jpeg,image/jpg,image/png"/>
+            
+            <div id="productImage_uploadProductVisualization">
+                <output id="productImage_uploadProductOutput" class="thumb"><br><br><br><br><br>Here we can watch the product's portrait's image</output>
+            </div>
+            
+            <div id="secondaryImages_uploadProductDiv">
+                Secondary images:
+            </div>
+            <input type="file" id="secondaryImages_uploadProductInput" name="secondaryImages_uploadProductInput[]" accept="image/jpeg,image/jpg,image/png" multiple=""/>
+            <div id="secondaryImages_uploadProductList">
+            </div>
+            
+            <div id="artistReference_uploadProductDiv">
+                Username's Artist's Reference:
+            </div>
+            <input type="text" id="artistReference_uploadProductInput" name="artistReference_uploadProductInput" placeholder=""  autocomplete="on"/>
+            <div id="artistInformation_uploadProductButton">
+                <img 
+                    style='height: 100%; width: 100%;' 
+                    src='files/images/icons/eye.png' 
+                    alt='Mountain View'>
+            </div>
+            <div style="display: none;"><input type="text" id="selectedArtistId_uploadProductInput" name="selectedArtistId_uploadProductInput" placeholder="" {#disabled="true"#}/></div>
+            <div id="artistInformation_uploadProductDiv">
+            </div>
+            
+            <div id="artistSongs_uploadProductDiv">
+                Select a song:
+            </div>
+            <div id="artistSongs_uploadProductCheckList" data-id1=0>
+            </div>
+            <div style="display: none;"><input type="text" id="selectedSongId_uploadProductInput" name="selectedSongId_uploadProductInput" placeholder="" {#disabled="true"#}/></div>
+            <div id="artistSongInformation_uploadProductDiv">
+            </div>
+            
+            <div id="productType_uploadProductDiv">
+                Product's type:
+            </div>
+            <input type="text" id="productType_uploadProductInput" name="productType_uploadProductInput" placeholder=""  autocomplete="on"/>
+            <div id="productType_uploadProductButton">
+                <img 
+                    style='height: 100%; width: 100%;' 
+                    src='files/images/icons/eye.png' 
+                    alt='Mountain View'>
+            </div>
+            <div id="productType_uploadProductCheckList" data-id1=0>
+            </div>
+            <div style="display: none;"><input type="text" id="selectedProductTypeId_uploadProductInput" name="selectedProductTypeId_uploadProductInput" placeholder="" {#disabled="true"#}/></div>
+            <div id="productTypeSelected_uploadProductDiv">
+            </div>
+
+            <div id="productKeyword_uploadProductLabel">
+                Product's keyword: 
+            </div>
+            <input id="productKeyword_uploadProductInput" type="text" name="productKeyword_uploadProductInput" size="17" placeholder="Write here your keyword... "/>
+            <div id="productKeyword_uploadProductButton">
+                <img 
+                    style='height: 100%; width: 100%;' 
+                    src="files/images/icons/insert.png" 
+                    alt="Mountain View">
+            </div>
+            <div id="productKeyword_uploadProductList" data-id1=0 data-id2=0>
+            </div>
+            
+            <div id='productImage_uploadProductButton'>
+                UPLOAD
+            </div>
+
+                        
+        </form>
+    </div>
+</div>
+            
+<script>
+    
+    
+    $('#artistReference_uploadProductInput')
+    .keyup(function (e) {
+        if (e.keyCode === 13)
+        {
+            getCurrentArtistInformation();
+            getCurrentArtistSongs();
+        }
+    });
+
+        
+    $('#productKeyword_uploadProductButton').click(function () {
+        createProductKeyword();
+    });    
+     
+    $('#productKeyword_uploadProductInput')
+    .keyup(function (e) {
+        if (e.keyCode === 13)
+        {
+            createProductKeyword();
+        }
+    });
+    
+    function createProductKeyword()
+    {
+        var productKeyword_Value = document.getElementById("productKeyword_uploadProductInput").value;
+        
+        var amountAdmittedKeywords = $("#productKeyword_uploadProductList").data('id1');
+        $("#productKeyword_uploadProductList").data('id1', amountAdmittedKeywords);
+        
+        if (!productKeyword_Value)
+        {
+            alert("Input a Keyword");
+        } else if (amountAdmittedKeywords >= 4)
+        {
+            alert("The max amount of keywords is 4");
+        } else
+        {
+            draw_keywordProduct(productKeyword_Value);
+        }
+    }
+    
+    function remove_keyword(amountAttemptedKeywords)
+    {
+        var deleting_div = document.getElementById("productKeywordContent_uploadProduct" + amountAttemptedKeywords);
+        document.getElementById("productKeyword_uploadProductList").removeChild(deleting_div);
+        
+        var amountAdmittedKeywords = $("#productKeyword_uploadProductList").data('id1');
+        amountAdmittedKeywords--;
+        $("#productKeyword_uploadProductList").data('id1', amountAdmittedKeywords);
+    }
+    
+    function draw_keywordProduct(productKeyword_Value)
+    {
+        var amountAdmittedKeywords = $("#productKeyword_uploadProductList").data('id1');
+        var amountAttemptedKeywords = $("#productKeyword_uploadProductList").data('id2');
+        amountAdmittedKeywords++; // admitidas
+        amountAttemptedKeywords++; // intentadas
+        $("#productKeyword_uploadProductList").data('id1', amountAdmittedKeywords);
+        $("#productKeyword_uploadProductList").data('id2', amountAttemptedKeywords);
+
+        var div_container = document.createElement("div");
+        div_container.id = "productKeywordContent_uploadProduct" + amountAttemptedKeywords;
+        div_container.className = "productKeywordContent_uploadProduct";
+        document.getElementById("productKeyword_uploadProductList").appendChild(div_container);
+
+        var input_keyword = document.createElement("input"); 
+        input_keyword.id = "productKeywordContentInput_uploadProduct" + amountAttemptedKeywords;
+        input_keyword.className = "productKeywordContentInput_uploadProduct";
+        input_keyword.value = productKeyword_Value;
+        input_keyword.name = "productKeywordContentInput_uploadProduct" + amountAttemptedKeywords;
+        input_keyword.disabled = true;
+        document.getElementById("productKeywordContent_uploadProduct" + amountAttemptedKeywords).appendChild(input_keyword);
+
+        var delete_keyword = document.createElement("div");
+        delete_keyword.id = "productKeywordContentDelete_uploadProduct" + amountAttemptedKeywords;
+        delete_keyword.className = "productKeywordContentDelete_uploadProduct";
+        delete_keyword.innerHTML = "x";
+        document.getElementById("productKeywordContent_uploadProduct" + amountAttemptedKeywords).appendChild(delete_keyword);
+        
+        $('#productKeywordContentDelete_uploadProduct'+amountAttemptedKeywords)
+        .click(function () {
+            remove_keyword(amountAttemptedKeywords);
+        });
+    }
+    
+    function insert_keywordProduct(productId)
+    { 
+        var form = $('#insert-keywordProduct-ajax');
+        var url = form.attr('action');
+      
+            
+            var amountAttemptedKeywords = $("#productKeyword_uploadProductList").data('id2');
+            var formData = new FormData($("#uploadProduct")[0]);
+            formData.append("product_id", productId);
+            formData.append("amountAttemptedKeywords", amountAttemptedKeywords);
+            
+            for (i=0; i<=amountAttemptedKeywords; i++)
+            {
+                var productKeyword_position = "productKeywordContentInput_uploadProduct"+i;
+                var productKeyword = document.getElementById(productKeyword_position);
+                if (productKeyword)
+                {
+                    var productKeyword_value = document.getElementById(productKeyword_position).value;
+                    formData.append(productKeyword_position, productKeyword_value);
+                }
+            }
+            
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: formData,
+                cache: false,
+                processData: false,
+                contentType: false
+            }).done(function (resp) {
+                
+            {#var amountImages = resp[0].amountImages;
+            var currentImage_id = new Array(amountImages);
+            
+            for (i=0; i<amountImages; i++)
+            {
+                var productimageId = resp[i].productimageId;
+                var productimage = resp[i].productimage;
+                currentImage_id[i] = productimageId;
+            }#}
+                
+            });
+    }
+
+    $("#productImage_uploadProductInput").change(function () {                
+        var reader = new FileReader();
+        reader.readAsDataURL(this.files[0]);
+        reader.onload = function (e) {
+        document.getElementById("productImage_uploadProductOutput").innerHTML = ['<img class="thumb" id="productImage_uploadProductOutput" src="', e.target.result, '"/>'].join('');
+        };
+    });
+
+    $('#productImage_uploadProductButton').click(function () {
+        updateProduct();
+    });
+
+     
+    $("#secondaryImages_uploadProductInput").change(function () {
+        
+        document.getElementById("secondaryImages_uploadProductList").innerHTML = "";
+        
+        var i = 0;
+        amountSecondaryImages=0;
+        while(document.getElementById("secondaryImages_uploadProductInput").files[i])
+        {
+            $("#secondaryImages_uploadProductList").append(
+                "<div id='environment_productSecondaryImage"+amountSecondaryImages+"' class='environment_productSecondaryImage'>"
+
+                    +"<table border='0' width='100%'>"
+                    +"<tr height='100px'>"
+                        +"<td width='100px' height='100px'>"
+                            +"<output id='output_productSecondaryImage"+amountSecondaryImages+"' class='thumb output_productSecondaryImage'><br><br><br><br><br>Here we can watch the product's portrait's image</output>"
+                            +"<div id='delete_productSecondaryImage"+amountSecondaryImages+"' name='delete_productSecondaryImage"+amountSecondaryImages+"' class='delete_productSecondaryImage' onclick='delete_productSecondaryImage(\"environment_productSecondaryImage" + amountSecondaryImages + "\");'> "
+                            +"<center>X</center> "
+                            +"</div> "
+
+                            {#+"<input type='file' id='input_productSecondaryImage"+amountSecondaryImages+"' name='input_productSecondaryImage"+amountSecondaryImages+"' accept='image/jpeg,image/jpg,image/png'/>"#}
+
+                        +"</td>"
+                    +"</tr>"
+                    +"</table>"
+
+                +"</div>"
+            );
+
+            
+    
+    
+            var reader = new FileReader();
+            reader.readAsDataURL(this.files[i]);
+            var xcx = 0; // turno de la imagen, correspondiente al ciclo
+
+            var xcxc = 0; // total de imagenes subidas
+            while(document.getElementById("secondaryImages_uploadProductInput").files[xcxc])
+            {
+                xcxc++;
+            }
+
+            reader.onload = function (e) {
+                for (j=xcx; j<xcxc; j++)
+                {                
+                    var respectly_id = "output_productSecondaryImage"+j;
+
+                    document.getElementById(respectly_id).innerHTML = "<img "+
+                    "style='height: 100%; width: 100%;' "+
+                    "src='"+e.target.result+"' "+
+                    "alt='Mountain View'>";
+                }
+                xcx++;
+            };
+                    
+            i++;
+            amountSecondaryImages++;
+        }
+    });
+    
+    $("#secondaryImages_uploadProductList")
+    .mouseover(function () {
+        var secondaryImages_uploadProductList = document.getElementById("secondaryImages_uploadProductList");
+        secondaryImages_uploadProductList.classList.add("visibleScroll");
+    })
+    .mouseout(function () {
+        var secondaryImages_uploadProductList = document.getElementById("secondaryImages_uploadProductList");
+        secondaryImages_uploadProductList.classList.remove("visibleScroll");
+    });
+    
+    $("#artistInformation_uploadProductDiv")
+    .mouseover(function () {
+        var artistInformation_uploadProductDiv = document.getElementById("artistInformation_uploadProductDiv");
+        artistInformation_uploadProductDiv.classList.add("visibleScroll");
+    })
+    .mouseout(function () {
+        var artistInformation_uploadProductDiv = document.getElementById("artistInformation_uploadProductDiv");
+        artistInformation_uploadProductDiv.classList.remove("visibleScroll");
+    });
+    
+    $("#artistSongs_uploadProductCheckList")
+    .mouseover(function () {
+        var artistSongs_uploadProductCheckList = document.getElementById("artistSongs_uploadProductCheckList");
+        artistSongs_uploadProductCheckList.classList.add("visibleScroll");
+    })
+    .mouseout(function () {
+        var artistSongs_uploadProductCheckList = document.getElementById("artistSongs_uploadProductCheckList");
+        artistSongs_uploadProductCheckList.classList.remove("visibleScroll");
+    });
+    
+    
+    function delete_productSecondaryImage(id)
+    {
+        document.getElementById(id).innerHTML = "";
+    }
+
+
+
+    $('#artistInformation_uploadProductButton').click(function () {
+        getCurrentArtistInformation();
+        getCurrentArtistSongs();
+    });
+
+
+
+
+    $('#productType_uploadProductInput')
+    .keyup(function (e) {
+        if (e.keyCode === 13)
+        {
+            getProductType();
+        }
+    });
+    
+    $('#productType_uploadProductButton').click(function () { 
+        getProductType();
+    });
+    
+    function getProductType()
+    {
+        var form = $('#get-productType-ajax');
+        var url = form.attr('action');
+
+        var productType_value = document.getElementById("productType_uploadProductInput").value;
+        $.post(url, {productType_value: productType_value}, function (data)
+        {
+            var productTypeVideosAmount = data[0].productTypeVideosAmount;
+            document.getElementById("productType_uploadProductCheckList").innerHTML = "";
+            for (i = 0; i < productTypeVideosAmount; i++)
+            {
+                var producttypeId = data[i].producttypeId;
+                var producttypeName = data[i].producttypeName;
+                
+                if (producttypeId === "_")
+                {
+                    
+                } else
+                {
+
+                    $("#productType_uploadProductCheckList").append(
+                        "<div id='productType_uploadProductFrame"+producttypeId+"' style='position: relative; width:100%; cursor: pointer;' "
+                            +" data-id1='"+producttypeId+"'"
+                            +" data-id2='"+producttypeName+"'"
+                            +">"
+
+                            +"<table border='0' width='100%'>"
+                            +"<tr height='20px'>"
+                                +"<td width='170px' height='20px'>"
+                                    +"<div id='productType_uploadProductCheckButton"+producttypeId+"' class='productType_uploadProductCheckButton'>"
+                                        +producttypeId+" - "+producttypeName+"<br>"
+                                    +"</div>"
+                                +"</td>"
+                            +"</tr>"
+                            +"</table>"
+
+                        +"</div>"
+                    );
+
+                    $('#productType_uploadProductFrame'+producttypeId)
+                    .click(function () {
+                        var producttypeId = $(this).data('id1');
+                        var producttypeName = $(this).data('id2');
+                        
+                        document.getElementById("selectedProductTypeId_uploadProductInput").value = producttypeId;
+                        
+                        
+                        var previousSelectedProductType = $("#productType_uploadProductCheckList").data('id1');
+                        var currentSelectedProductType = $(this).data('id1');
+
+                        var previousSelectedProductTypeId = "productType_uploadProductCheckButton"+previousSelectedProductType;
+                        var currentSelectedProductTypeId = "productType_uploadProductCheckButton"+currentSelectedProductType;
+                        $("#productType_uploadProductCheckList").data('id1', currentSelectedProductType);
+                        if (currentSelectedProductTypeId)
+                        {
+                            document.getElementById(currentSelectedProductTypeId).style.color = "red";
+                        }
+                        if (previousSelectedProductTypeId)
+                        {
+                            document.getElementById(previousSelectedProductTypeId).style.color = "black";
+                        }
+
+                    })
+                    .mouseover(function () {
+                        var producttypeId = $(this).data('id1');
+                        var productType_uploadProductCheckButtonId = "productType_uploadProductCheckButton"+producttypeId;
+                        var productType_uploadProductCheckButton = document.getElementById(productType_uploadProductCheckButtonId);
+                        productType_uploadProductCheckButton.style.backgroundColor = "#ccc";
+                    })
+                    .mouseout(function () {
+                        var producttypeId = $(this).data('id1');
+                        var productType_uploadProductCheckButtonId = "productType_uploadProductCheckButton"+producttypeId;
+                        var productType_uploadProductCheckButton = document.getElementById(productType_uploadProductCheckButtonId);
+                        productType_uploadProductCheckButton.style.backgroundColor = "transparent";
+                    });
+
+                }
+            }
+        }).fail(function () {
+            alert('ERROR #get-productType-ajax');
+        });
+        
+    }
+
+
+    function getCurrentArtistInformation()
+    {
+        var form = $('#get-current-artist-information-ajax');
+        var url = form.attr('action');
+
+        var username = document.getElementById("artistReference_uploadProductInput").value;
+
+        $.post(url, {username: username}, function (data)
+        {
+            var userId = data[0].userId;
+            var userName = data[0].userName;
+            var userProfilephoto = data[0].userProfilephoto;
+            var userFirstgivenname = data[0].userFirstgivenname;
+            var userSecondgivenname = data[0].userSecondgivenname;
+            var userFirstfamilyname = data[0].userFirstfamilyname;
+            var userSecondfamilyname = data[0].userSecondfamilyname;
+            var userEmail = data[0].userEmail;
+            var userBiography = data[0].userBiography;
+            
+            var artistInformation_uploadProductDiv = document.getElementById("artistInformation_uploadProductDiv");
+            var selectedArtistId_uploadProductInput = document.getElementById("selectedArtistId_uploadProductInput");
+            
+            if (userId == "_")
+            {
+                artistInformation_uploadProductDiv.innerHTML = "";
+                selectedArtistId_uploadProductInput.value = "";
+            } else
+            {
+                artistInformation_uploadProductDiv.innerHTML = 
+                "<br><img style= 'width: 140px; height: 140px;' src='"+userProfilephoto+"' alt='Mountain View'>"+
+                "<br> - "+userFirstgivenname+" "+userSecondgivenname+" "+userFirstfamilyname+" "+userSecondfamilyname+
+                "<br> - "+userEmail+
+                "<br> - "+userBiography;
+            
+            
+                selectedArtistId_uploadProductInput.value = userId;
+            }
+            
+{#            alert("get-current-artist-information-ajax");#}
+        }).fail(function () {
+{#            alert('ERROR get-current-artist-information-ajax');#}
+        });
+    }
+    
+    
+    function getCurrentArtistSongs()
+    {
+        var form = $('#get-current-artist-songs-ajax');
+        var url = form.attr('action');
+
+        var username = document.getElementById("artistReference_uploadProductInput").value;
+
+        $.post(url, {username: username}, function (data)
+        {
+
+            var amountVideos = data[0].amountVideos;
+        
+            document.getElementById("artistSongs_uploadProductCheckList").innerHTML = "";
+        
+            for (i = 0; i < amountVideos; i++)
+            {
+                var videoId = data[i].videoId;
+                var videoName = data[i].videoName;
+                var videoDescription = data[i].videoDescription;
+                var videoImage = data[i].videoImage;
+                var videoContent = data[i].videoContent;
+                var videoUpdatedate = data[i].videoUpdatedate;
+                var videoAmountViews = data[i].videoAmountViews;
+                var videoAmountComments = data[i].videoAmountComments;
+                var videoScore = data[i].videoScore;
+                var userId = data[i].userId;
+                var userName = data[i].userName;
+                var amountVideos = data[i].amountVideos;
+                
+                if (videoId === "_")
+                {
+                    
+                } else
+                {
+        
+                    $("#artistSongs_uploadProductCheckList").append(
+                        "<div id='videoFrame_Artist_uploadProduct"+videoId+"' style='position: relative; width:100%; cursor: pointer;' "
+                            +" data-id1='"+videoId+"'"
+                            +" data-id2='"+videoName+"'"
+                            +" data-id3='"+videoDescription+"'"
+                            +" data-id4='"+videoImage+"'"
+                            +" data-id5='"+videoContent+"'"
+                            +" data-id6='"+videoUpdatedate+"'"
+                            +" data-id7='"+videoAmountViews+"'"
+                            +" data-id8='"+videoAmountComments+"'"
+                            +" data-id9='"+videoScore+"'"
+                            +" data-id10='0'"
+                            +" data-id11='"+userId+"'"
+                            +" data-id12='"+userName+"'"
+                            +" data-id13='"+amountVideos+"'"
+                            +" data-id14='0'"
+                            +" data-id15='0'"
+                            +">"
+
+                            +"<table border='0' width='100%'>"
+                            +"<tr height='20px'>"
+                                +"<td width='170px' height='20px'>"
+                                    +"<div id='videoContaint_Artist_uploadProduct"+videoId+"' class='videoContaint_Artist_uploadProduct'>"
+                                        +" - "+videoName+"<br>"
+                                    +"</div>"
+                                +"</td>"
+                            +"</tr>"
+                            +"</table>"
+
+                        +"</div>"
+                    );
+
+                    $('#videoFrame_Artist_uploadProduct'+videoId)
+                    .click(function () {
+                        var videoId = $(this).data('id1');
+                        var videoName = $(this).data('id2');
+                        var videoDescription = $(this).data('id3');
+                        var videoImage = $(this).data('id4');
+                        var videoContent = $(this).data('id5');
+                        var videoUpdatedate = $(this).data('id6');
+                        var videoAmountViews = $(this).data('id7');
+                        var videoAmountComments = $(this).data('id8');
+                        var videoScore = $(this).data('id9');
+                        var userId = $(this).data('id11');
+                        var userName = $(this).data('id12');
+                        var amountVideos = $(this).data('id13');
+        
+                        document.getElementById("artistSongInformation_uploadProductDiv").innerHTML = 
+                        "<br><img style= 'width: 140px; height: 140px;' src='files/"+userId+"/"+videoId+"/"+videoImage+"' alt='Mountain View'>"+
+                        "<br> - "+videoName+
+                        "<br> - "+videoUpdatedate+
+                        "<br> - "+videoAmountViews+
+                        "<br> - "+videoAmountComments+
+                        "<br> - "+videoDescription;
+                        
+                        document.getElementById("selectedSongId_uploadProductInput").value = videoId;
+
+                        var previousSelectedSong = $("#artistSongs_uploadProductCheckList").data('id1');
+                        var currentSelectedSong = $(this).data('id1');
+
+                        var previousSelectedSongId = "videoContaint_Artist_uploadProduct"+previousSelectedSong;
+                        var currentSelectedSongId = "videoContaint_Artist_uploadProduct"+currentSelectedSong;
+                        $("#artistSongs_uploadProductCheckList").data('id1', currentSelectedSong);
+                        if (currentSelectedSongId)
+                        {
+                            document.getElementById(currentSelectedSongId).style.color = "red";
+                        }
+                        if (previousSelectedSongId)
+                        {
+                            document.getElementById(previousSelectedSongId).style.color = "black";
+                        }
+                    })
+                    .mouseover(function () {
+                        var videoId = $(this).data('id1');
+                        var videoContaint_Artist_uploadProductId = "videoContaint_Artist_uploadProduct"+videoId;
+                        var videoContaint_Artist_uploadProduct = document.getElementById(videoContaint_Artist_uploadProductId);
+                        videoContaint_Artist_uploadProduct.style.backgroundColor = "#ccc";
+                    })
+                    .mouseout(function () {
+                        var videoId = $(this).data('id1');
+                        var videoContaint_Artist_uploadProductId = "videoContaint_Artist_uploadProduct"+videoId;
+                        var videoContaint_Artist_uploadProduct = document.getElementById(videoContaint_Artist_uploadProductId);
+                        videoContaint_Artist_uploadProduct.style.backgroundColor = "transparent";
+                    });
+
+                
+                }
+        
+            }   
+    
+{#            alert("get-current-artist-songs-ajax");#}
+        }).fail(function () {
+{#            alert('ERROR get-current-artist-songs-ajax');#}
+        });
+    }
+    
+    
+    
+    
+    function uploadProduct(productId)
+    {
+        var form = $('#upload-product-ajax');
+        var url = form.attr('action');
+             
+        var product_image = document.getElementById("productImage_uploadProductInput").files[0];
+        
+        var formdata = new FormData();
+        formdata.append("product_image", product_image);
+        formdata.append("product_id", productId);
+        
+        var ajax = new XMLHttpRequest();
+
+        ajax.open("POST", url);
+        ajax.send(formdata);
+        ajax.onload = function (data) {
+
+            var respuesta = this.response;
+{#            alert("se subio todo correctamente");#}
+        };
+    }
+    
+    function updateProduct()
+    {
+        var form = $('#update-product-ajax');
+        var url = form.attr('action');
+
+        productName_uploadProductInput = document.getElementById("productName_uploadProductInput").value;
+        productPrice_uploadProductInput = document.getElementById("productPrice_uploadProductInput").value;
+        productDescription_uploadProductTextarea = document.getElementById("productDescription_uploadProductTextarea").value;
+        productImage_uploadProductInput = document.getElementById("productImage_uploadProductInput").value;
+        secondaryImages_uploadProductInput = document.getElementById("secondaryImages_uploadProductInput").value;
+        selectedArtistId_uploadProductInput = document.getElementById("selectedArtistId_uploadProductInput").value;
+        artistReference_uploadProductInput = document.getElementById("artistReference_uploadProductInput").value;
+        selectedSongId_uploadProductInput = document.getElementById("selectedSongId_uploadProductInput").value;
+        productType_uploadProductInput = document.getElementById("productType_uploadProductInput").value;
+        selectedProductTypeId_uploadProduct = document.getElementById("selectedProductTypeId_uploadProductInput").value;
+        productKeyword_uploadProductInput = document.getElementById("productKeyword_uploadProductInput").value;
+ 
+        if (!productName_uploadProductInput || 
+            !productPrice_uploadProductInput || 
+            !productDescription_uploadProductTextarea || 
+            !productImage_uploadProductInput || 
+            !secondaryImages_uploadProductInput ||
+            !selectedArtistId_uploadProductInput ||
+            !artistReference_uploadProductInput ||
+            !selectedSongId_uploadProductInput ||
+            !productType_uploadProductInput ||
+            !selectedProductTypeId_uploadProduct ||
+            !productKeyword_uploadProductInput
+            ) {
+            alert("You need to introduce all information");
+        } else {
+        
+            var formData = new FormData($("#uploadProduct")[0]);
+ 
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: formData,
+                cache: false,
+                processData: false,
+                contentType: false
+            }).done(function (resp) {
+                              
+                var productId = resp[0].product_id;
+                var productName = resp[0].product_name;
+                var productPrice = resp[0].product_price;
+                var productDescription = resp[0].product_description;
+                var productImage = resp[0].product_image;
+                var productArtist = resp[0].product_artist;
+                var productSong = resp[0].product_song;
+                var productType = resp[0].product_type;
+                var productUser = resp[0].product_user;
+                drawProduct_productList(
+                    productId, 
+                    productName, 
+                    productPrice, 
+                    productDescription, 
+                    productImage
+                ); // StoreBundle 
+                uploadProduct(productId); 
+                updateSecondaryImages(productId); 
+                insert_keywordProduct(productId); 
+
+                $("#productKeyword_uploadProductList").data('id1', 0);
+                $("#productKeyword_uploadProductList").data('id2', 0);
+                document.getElementById("productImage_uploadProductOutput").innerHTML = "Here we can watch the product's portrait's image";
+                document.getElementById("secondaryImages_uploadProductList").innerHTML = "";
+                document.getElementById("artistInformation_uploadProductDiv").innerHTML = "";
+                document.getElementById("artistSongs_uploadProductCheckList").innerHTML = "";
+                document.getElementById("artistSongInformation_uploadProductDiv").innerHTML = "";
+                document.getElementById("productType_uploadProductCheckList").innerHTML = "";
+                document.getElementById("productTypeSelected_uploadProductDiv").innerHTML = "";
+                document.getElementById("productKeyword_uploadProductList").innerHTML = "";
+
+                document.getElementById("productName_uploadProductInput").value = "";
+                document.getElementById("productPrice_uploadProductInput").value = "";
+                document.getElementById("productDescription_uploadProductTextarea").value = "";
+                document.getElementById("productImage_uploadProductInput").value = "";
+                document.getElementById("selectedArtistId_uploadProductInput").value = "";
+                document.getElementById("artistReference_uploadProductInput").value = "";
+                document.getElementById("selectedSongId_uploadProductInput").value = "";
+                document.getElementById("productType_uploadProductInput").value = "";
+                document.getElementById("selectedProductTypeId_uploadProductInput").value = "";
+                document.getElementById("productKeyword_uploadProductInput").value = "";
+        
+                alert("product succesfully uploaded");
+            });
+            
+        }
+    }
+    
+    
+    function updateSecondaryImages(productId)
+    {
+        var form = $('#update-secondary-images-ajax');
+        var url = form.attr('action');
+
+        var formData = new FormData($("#uploadProduct")[0]);
+        formData.append("product_id", productId);
+
+
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: formData,
+            cache: false,
+            processData: false,
+            contentType: false
+        }).done(function (resp) {
+
+{#            alert("update-secondary-images-ajax ");#}
+
+        var amountImages = resp[0].amountImages;
+        var currentImage_id = new Array(amountImages);
+
+        for (i=0; i<amountImages; i++)
+        {
+            var productimageId = resp[i].productimageId;
+            var productimage = resp[i].productimage;
+
+            currentImage_id[i] = productimageId;
+{#                alert(productimageId + " - " + productimage);#}
+        }
+        uploadSecondaryImages(amountImages, currentImage_id, productId);
+
+        });
+
+        
+    }
+    
+    function uploadSecondaryImages(amountImages, currentImage_id, productId)
+    {
+        var form = $('#upload-secondary-images-ajax');
+        var url = form.attr('action');
+
+        var formData = new FormData($("#uploadProduct")[0]);
+        formData.append("amount_images", amountImages);
+        formData.append("product_id", productId);
+
+        for (i=0; i<amountImages; i++)
+        {
+            var currentImage = "currentImage_id"+i;
+            var currentImage_value = currentImage_id[i];
+            formData.append(currentImage, currentImage_value);
+{#                alert(currentImage + " " + currentImage_value);#}
+        }
+
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: formData,
+            cache: false,
+            processData: false,
+            contentType: false
+        }).done(function (resp) {
+
+        {#alert("upload-secondary-images-ajax ");#}
+
+        });
+        
+    }
+
+</script>

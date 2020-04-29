@@ -1,0 +1,50 @@
+<?php
+
+namespace HomeBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Videocomment
+ *
+ * @ORM\Table(name="videoComment", indexes={@ORM\Index(name="videoUser_id", columns={"videoUser_id"})})
+ * @ORM\Entity
+ */
+class Videocomment
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="videoComment_id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $videocommentId;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="videoComment_content", type="string", length=170, nullable=false)
+     */
+    private $videocommentContent;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="videoComment_date", type="datetime", nullable=false)
+     */
+    private $videocommentDate;
+
+    /**
+     * @var \Videouser
+     *
+     * @ORM\ManyToOne(targetEntity="Videouser")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="videoUser_id", referencedColumnName="videoUser_id")
+     * })
+     */
+    private $videouser;
+
+
+}
+

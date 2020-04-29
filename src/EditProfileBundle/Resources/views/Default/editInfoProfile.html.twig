@@ -1,0 +1,287 @@
+<div id='userName_profileDiv'>
+Username: 
+</div>
+<input type='text' id='userName_profileInput' placeholder='' name='userId_profileInput'/>
+
+<div id='userFirstgivenname_profileDiv'>
+First given name: 
+</div>
+<input type='text' id='userFirstgivenname_profileInput' placeholder='' name='userFirstgivenname_profileInput'/>
+
+<div id='userSecondgivenname_profileDiv'>
+Second given name: 
+</div>
+<input type='text' id='userSecondgivenname_profileInput' placeholder='' name='userSecondgivenname_profileInput'/>
+
+<div id='userFirstfamilyname_profileDiv'>
+First family name: 
+</div>
+<input type='text' id='userFirstfamilyname_profileInput' placeholder='' name='userFirstfamilyname_profileInput'/>
+
+<div id='userSecondfamilyname_profileDiv'>
+Second family name: 
+</div>
+<input type='text' id='userSecondfamilyname_profileInput' placeholder='' name='userSecondfamilyname_profileInput'/>
+
+<div id='userEmail_profileDiv'>
+User email: 
+</div>
+<input type='text' id='userEmail_profileInput' placeholder='' name='userEmail_profileInput'/>
+
+<div id='userCurrentPassword_profileDiv'>
+Current Password: 
+</div>
+<input type='password' id='userCurrentPassword_profileInput' placeholder='' name='userCurrentPassword_profileInput'/>    
+<div id="hideShowCurrentPassword" class="hideShowPassword">
+    <img 
+        style='height: 100%; width: 100%;' 
+        src='files/images/icons/eye.png' 
+        alt='Mountain View'>
+</div>
+
+<div id='userNewPassword_profileDiv'>
+New Password: 
+</div>
+<input type='password' id='userNewPassword_profileInput' placeholder='' name='userNewPassword_profileInput'/>
+<div id="hideShowNewPassword" class="hideShowPassword">
+    <img 
+        style='height: 100%; width: 100%;' 
+        src='files/images/icons/eye.png' 
+        alt='Mountain View'>
+</div>
+
+<div id='userConfirmPassword_profileDiv'>
+Confirm password: 
+</div>
+<input type='password' id='userConfirmPassword_profileInput' placeholder='' name='userConfirmPassword_profileInput'/>
+<div id="hideShowConfirmPassword" class="hideShowPassword">
+    <img 
+        style='height: 100%; width: 100%;' 
+        src='files/images/icons/eye.png' 
+        alt='Mountain View'>
+</div>
+
+<div id='userBiography_profileDiv'>
+User biography: 
+</div>
+<textarea 
+id='userBiography_profileInput' name='userBiography_profileInput'></textarea>
+
+<div id='save_editProfile'>
+SAVE
+</div>
+
+
+<script>
+    
+    $('#userBiography_profileInput')
+    .mouseover(function () {
+        var userBiography_profileInput = document.getElementById("userBiography_profileInput");
+        userBiography_profileInput.classList.add("visibleScroll");
+    })
+    .mouseout(function () {
+        var userBiography_profileInput = document.getElementById("userBiography_profileInput");
+        userBiography_profileInput.classList.remove("visibleScroll");
+    });
+    
+    $('#save_editProfile').click(function () {
+        var userName_value = document.getElementById("userName_profileInput").value;
+        var userFirstgivenname_value = document.getElementById("userFirstgivenname_profileInput").value;
+        var userSecondgivenname_value = document.getElementById("userSecondgivenname_profileInput").value;
+        var userFirstfamilyname_value = document.getElementById("userFirstfamilyname_profileInput").value;
+        var userSecondfamilyname_value = document.getElementById("userSecondfamilyname_profileInput").value;
+        var userEmail_value = document.getElementById("userEmail_profileInput").value;
+        var userCurrentPassword_value = document.getElementById("userCurrentPassword_profileInput").value;
+        var userNewPassword_value = document.getElementById("userNewPassword_profileInput").value;
+        var userConfirmPassword_value = document.getElementById("userConfirmPassword_profileInput").value;
+        var userBiography_value = document.getElementById("userBiography_profileInput").value;
+
+        updateInfoProfile(
+            userName_value,
+            userFirstgivenname_value,
+            userSecondgivenname_value,
+            userFirstfamilyname_value,
+            userSecondfamilyname_value,
+            userEmail_value,
+            userCurrentPassword_value,
+            userNewPassword_value,
+            userConfirmPassword_value,
+            userBiography_value
+        );
+    });
+    
+    var ContactInfoProfile = document.getElementById("ContactInfoProfile");
+    ContactInfoProfile.addEventListener("click", editInfoProfile, false);
+    
+    function editInfoProfile() // borrar crud y extraer info de las variables globales
+    {
+        var userName_profileInput = document.getElementById("userName_profileInput");
+        var userFirstgivenname_profileInput = document.getElementById("userFirstgivenname_profileInput");
+        var userSecondgivenname_profileInput = document.getElementById("userSecondgivenname_profileInput");
+        var userFirstfamilyname_profileInput = document.getElementById("userFirstfamilyname_profileInput");
+        var userSecondfamilyname_profileInput = document.getElementById("userSecondfamilyname_profileInput");
+        var userEmail_profileInput = document.getElementById("userEmail_profileInput");
+        var userBiography_profileInput = document.getElementById("userBiography_profileInput");
+
+        userName_profileInput.value = session_userName;
+        userFirstgivenname_profileInput.value = session_userFirstgivenname;
+        userSecondgivenname_profileInput.value = session_userSecondgivenname;
+        userFirstfamilyname_profileInput.value = session_userFirstfamilyname;
+        userSecondfamilyname_profileInput.value = session_userSecondfamilyname;
+        userEmail_profileInput.value = session_userEmail;
+        userBiography_profileInput.value = session_userBiography;
+    }
+    
+    function updateInfoProfile(
+                userName_value,
+                userFirstgivenname_value,
+                userSecondgivenname_value,
+                userFirstfamilyname_value,
+                userSecondfamilyname_value,
+                userEmail_value,
+                userCurrentPassword_value,
+                userNewPassword_value,
+                userConfirmPassword_value,
+                userBiography_value
+            )
+    {
+        var form = $('#update-info-profile-ajax');
+        var url = form.attr('action');
+
+        $.post(url, {
+            userName_value: userName_value,
+            userFirstgivenname_value: userFirstgivenname_value,
+            userSecondgivenname_value: userSecondgivenname_value,
+            userFirstfamilyname_value: userFirstfamilyname_value,
+            userSecondfamilyname_value: userSecondfamilyname_value,
+            userEmail_value: userEmail_value,
+            userCurrentPassword_value: userCurrentPassword_value,
+            userNewPassword_value: userNewPassword_value,
+            userConfirmPassword_value: userConfirmPassword_value,
+            userBiography_value: userBiography_value
+        }, function (data)
+        {
+            var mensaje = data[0].mensaje;
+            var userCurrentPassword_profileDiv = document.getElementById("userCurrentPassword_profileDiv");
+            var userCurrentPassword_profileInput = document.getElementById("userCurrentPassword_profileInput");
+            var userNewPassword_profileDiv = document.getElementById("userNewPassword_profileDiv");
+            var userNewPassword_profileInput = document.getElementById("userNewPassword_profileInput");
+            var userConfirmPassword_profileDiv = document.getElementById("userConfirmPassword_profileDiv");
+            var userConfirmPassword_profileInput = document.getElementById("userConfirmPassword_profileInput");
+            
+            
+            if (mensaje == 0)
+            {
+                // el usuario no quizo cambiar el password
+                userCurrentPassword_profileInput.value = "";
+                userNewPassword_profileInput.value = "";
+                userConfirmPassword_profileInput.value = "";
+                
+                userCurrentPassword_profileDiv.style.color = "black";
+                userNewPassword_profileDiv.style.color = "black";
+                userConfirmPassword_profileDiv.style.color = "black";
+            } else if (mensaje == 1)
+            {
+                // Todo lo ingreso mal
+                userCurrentPassword_profileInput.value = "";
+                userNewPassword_profileInput.value = "";
+                userConfirmPassword_profileInput.value = "";
+                
+                userCurrentPassword_profileDiv.style.color = "red";
+                userNewPassword_profileDiv.style.color = "red";
+                userConfirmPassword_profileDiv.style.color = "red";
+            } else if (mensaje == 2)
+            {
+                // el password que ingreso como actual es incorrecto
+                userCurrentPassword_profileInput.value = "";
+                userNewPassword_profileInput.value = "";
+                userConfirmPassword_profileInput.value = "";
+                
+                userCurrentPassword_profileDiv.style.color = "red";
+                userNewPassword_profileDiv.style.color = "black";
+                userConfirmPassword_profileDiv.style.color = "black";
+            } else if (mensaje == 3)
+            {
+                // el nuevo password y su confirmacion no son iguales
+                userCurrentPassword_profileInput.value = "";
+                userNewPassword_profileInput.value = "";
+                userConfirmPassword_profileInput.value = "";
+                
+                userCurrentPassword_profileDiv.style.color = "black";
+                userNewPassword_profileDiv.style.color = "red";
+                userConfirmPassword_profileDiv.style.color = "red";
+            } else if (mensaje == 4)
+            {
+                // se cambio el password exitosamente
+                userCurrentPassword_profileInput.value = "";
+                userNewPassword_profileInput.value = "";
+                userConfirmPassword_profileInput.value = "";
+                
+                userCurrentPassword_profileDiv.style.color = "green";
+                userNewPassword_profileDiv.style.color = "green";
+                userConfirmPassword_profileDiv.style.color = "green";
+            }
+            
+            var ContactInfoProfile = document.getElementById("ContactInfoProfile");
+            ContactInfoProfile.innerHTML = 
+                    "USERNAME: "+userName_value+"<br>"+
+                    userFirstgivenname_value+" "+userSecondgivenname_value+" "+userFirstfamilyname_value+" "+userSecondfamilyname_value+"<br>"+
+                    "EMAIL: "+userEmail_value+"<br><br>"+
+                    "ABOUT ME: "+userBiography_value+"<br>";
+        
+        }).fail(function () {
+            alert('UPDATE INFO PROFILE ERROR');
+        });
+        
+    }
+    
+    $('#VideoListProfile')
+    .mouseover(function () {
+        var VideoListProfile = document.getElementById("VideoListProfile");
+        VideoListProfile.classList.add("visibleScroll");
+    })
+    .mouseout(function () {
+        var VideoListProfile = document.getElementById("VideoListProfile");
+        VideoListProfile.classList.remove("visibleScroll");
+    });
+    
+    
+    
+    $('#hideShowCurrentPassword')
+    .click(function () {
+        var userCurrentPassword_profileInput = document.getElementById("userCurrentPassword_profileInput");
+        if (userCurrentPassword_profileInput.type === "text")
+        {
+            userCurrentPassword_profileInput.type = "password";
+        } else if (userCurrentPassword_profileInput.type === "password")
+        {
+            userCurrentPassword_profileInput.type = "text";
+        }
+    });
+    
+    $('#hideShowNewPassword')
+    .click(function () {
+        var userNewPassword_profileInput = document.getElementById("userNewPassword_profileInput");
+        if (userNewPassword_profileInput.type === "text")
+        {
+            userNewPassword_profileInput.type = "password";
+        } else if (userNewPassword_profileInput.type === "password")
+        {
+            userNewPassword_profileInput.type = "text";
+        }
+    });
+    
+    $('#hideShowConfirmPassword')
+    .click(function () {
+        var userConfirmPassword_profileInput = document.getElementById("userConfirmPassword_profileInput");
+        if (userConfirmPassword_profileInput.type === "text")
+        {
+            userConfirmPassword_profileInput.type = "password";
+        } else if (userConfirmPassword_profileInput.type === "password")
+        {
+            userConfirmPassword_profileInput.type = "text";
+        }
+        
+    });
+    
+</script>

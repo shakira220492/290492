@@ -1,0 +1,43 @@
+<?php
+
+namespace HomeBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Productscore
+ *
+ * @ORM\Table(name="productScore", indexes={@ORM\Index(name="product_id", columns={"product_id"})})
+ * @ORM\Entity
+ */
+class Productscore
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="productScore_id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $productscoreId;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="productScore_punctuation", type="integer", nullable=false)
+     */
+    private $productscorePunctuation;
+
+    /**
+     * @var \Product
+     *
+     * @ORM\ManyToOne(targetEntity="Product")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="product_id", referencedColumnName="product_id")
+     * })
+     */
+    private $product;
+
+
+}
+

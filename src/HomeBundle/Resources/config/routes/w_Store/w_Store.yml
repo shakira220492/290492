@@ -1,0 +1,35 @@
+add_to_shopping_cart_form:
+    path:     /addToShoppingCart
+    defaults: { _controller: StoreBundle:Default:addToShoppingCart }
+    methods:  POST
+    
+delete_selected_product_form:
+    path:     /deleteSelectedProduct
+    defaults: { _controller: StoreBundle:Default:deleteSelectedProduct }
+    methods:  POST
+    
+get_selected_products_form:
+    path:     /getSelectedProducts
+    defaults: { _controller: StoreBundle:Default:getSelectedProducts }
+    methods:  POST
+    
+identify_keyword_form:
+    path:     /identifyKeyword
+    defaults: { _controller: StoreBundle:Default:identifyKeyword }
+    methods:  POST
+    
+pruebasdf_form:
+    path:     /pruebasdf
+    defaults: { _controller: StoreBundle:Default:pruebasdf }
+    methods:  POST
+    
+get_product_details_form:
+    path:     /getProductDetails
+    defaults: { _controller: StoreBundle:Default:getProductDetails }
+    methods:  POST
+    
+available_routes_form:
+    path:     /availableRoutes
+    defaults: { _controller: StoreBundle:AvailableRoutes:AvailableRoutes }
+    methods:  POST
+    

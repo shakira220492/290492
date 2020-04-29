@@ -1,0 +1,175 @@
+#branchName_uploadBranchDiv {
+    position: absolute;
+    top: 0px;
+    left: 0px; 
+    width: 120px;
+    text-align: right;    
+}
+
+#branchName_uploadBranchInput {
+    position: absolute;
+    top: 0px;
+    left: 120px; 
+    width: 300px;
+    text-align: left;
+    height: 30px;
+    background-color: rgba(255, 255, 255, 0.5);
+    color: gray;
+    border: 0;
+    text-transform: uppercase;
+    align-content: center;
+}
+
+#branchCellphone_uploadBranchDiv {
+    position: absolute;
+    top: 50px;
+    left: 0px; 
+    width: 120px;
+    text-align: right;        
+}
+
+#branchCellphone_uploadBranchInput {
+    position: absolute;
+    top: 50px;
+    left: 120px; 
+    width: 300px;
+    text-align: left;
+    height: 30px;
+    background-color: rgba(255, 255, 255, 0.5);
+    color: gray;
+    border: 0;
+    text-transform: uppercase;
+    align-content: center;
+}
+
+#branchTelephone_uploadBranchDiv {
+    position: absolute;
+    top: 100px;
+    left: 0px; 
+    width: 120px;
+    text-align: right;
+}
+
+#branchTelephone_uploadBranchInput {
+    position: absolute;
+    top: 100px;
+    left: 120px; 
+    width: 300px;
+    text-align: left;
+    height: 30px;
+    background-color: rgba(255, 255, 255, 0.5);
+    color: gray;
+    border: 0;
+    text-transform: uppercase;
+    align-content: center;
+}
+
+#branchAddress_uploadBranchDiv {
+    position: absolute;
+    top: 150px;
+    left: 0px; 
+    width: 120px;
+    text-align: right;
+}
+
+#branchAddress_uploadBranchInput {
+    position: absolute;
+    top: 150px;
+    left: 120px; 
+    width: 300px;
+    text-align: left;
+    height: 30px;
+    background-color: rgba(255, 255, 255, 0.5);
+    color: gray;
+    border: 0;
+    text-transform: uppercase;
+    align-content: center;
+}
+
+#branchCountry_uploadBranchDiv {
+    position: absolute;
+    top: 200px;
+    left: 0px; 
+    width: 120px;
+    text-align: right;
+}
+
+#branchCountry_uploadBranchSelect {
+    position: absolute;
+    top: 200px;
+    left: 120px; 
+    width: 300px;
+    text-align: left;
+    height: 30px;
+    background-color: rgba(255, 255, 255, 0.5);
+    color: gray;
+    border: 0;
+    text-transform: uppercase;
+    align-content: center;
+}
+
+#branchCity_uploadBranchDiv {
+    position: absolute;
+    top: 250px;
+    left: 0px; 
+    width: 120px;
+    text-align: right;
+}
+
+#branchCity_uploadBranchSelect {
+    position: absolute;
+    top: 250px;
+    left: 120px; 
+    width: 300px;
+    text-align: left;
+    height: 30px;
+    background-color: rgba(255, 255, 255, 0.5);
+    color: gray;
+    border: 0;
+    text-transform: uppercase;
+    align-content: center;
+}
+
+#branchDescription_uploadBranchDiv {
+    position: absolute;
+    top: 300px;
+    left: 0px; 
+    width: 120px;
+    text-align: right;
+}
+
+#branchDescription_uploadBranchTextarea {
+    position: absolute;
+    top: 300px;
+    left: 120px; 
+    width: 300px;
+    text-align: left;
+    height: 150px;
+    background-color: rgba(255, 255, 255, 0.5);
+    color: gray;
+    border: 0;
+    text-transform: uppercase;
+    align-content: center;
+}
+
+#branchUploadButton {
+    position: absolute;
+    top: 460px;
+    left: 120px;
+    cursor:pointer; 
+    background-color: #1ab7ea; 
+    padding:5px; 
+    width:80px; 
+    height:30px;
+    text-align: center;
+}
+
+#branchUploadButton:hover {
+    position: absolute; 
+    background-color: white;
+    opacity: 0.7;
+    color: #1ab7ea;
+    transition-property: all;
+    transition-duration: 0.2s;
+    opacity: 1;
+}

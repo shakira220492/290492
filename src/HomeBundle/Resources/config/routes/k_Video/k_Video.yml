@@ -1,0 +1,41 @@
+read_lyrics_form:
+    path:     /readLyrics
+    defaults: { _controller: VideoBundle:Default:readLyrics }
+    methods:  POST
+    
+get_closedCaption_form:
+    path:     /getClosedCaption
+    defaults: { _controller: VideoBundle:Default:getClosedCaption }
+    methods:  POST
+    
+set_closedCaption_form:
+    path:     /setClosedCaption
+    defaults: { _controller: VideoBundle:Default:setClosedCaption }
+    methods:  POST
+    
+delete_specific_closedCaption_form:
+    path:     /deleteSpecificClosedCaption
+    defaults: { _controller: VideoBundle:Default:deleteSpecificClosedCaption }
+    methods:  POST
+    
+############################    
+
+get_score_video_form:
+    path:     /getScoreVideo
+    defaults: { _controller: VideoBundle:ScoreVideo:getScoreVideo }
+    methods:  POST
+    
+set_score_video_form:
+    path:     /setScoreVideo
+    defaults: { _controller: VideoBundle:ScoreVideo:setScoreVideo }
+    methods:  POST
+    
+get_personal_score_video_form:
+    path:     /getPersonalScoreVideo
+    defaults: { _controller: VideoBundle:ScoreVideo:getPersonalScoreVideo }
+    methods:  POST
+    
+set_personal_score_video_form:
+    path:     /setPersonalScoreVideo
+    defaults: { _controller: VideoBundle:ScoreVideo:setPersonalScoreVideo }
+    methods:  POST

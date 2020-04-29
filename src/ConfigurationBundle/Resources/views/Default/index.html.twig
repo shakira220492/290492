@@ -1,0 +1,45 @@
+<div id='songIconButton'>
+    Amantes
+</div>
+
+<div id='artistIconButton'>
+    Greicy ft Mike Bahía
+</div>
+
+<div id='suscribeIconButton'>
+    <img style='
+     width:30px; 
+     height:30px; 
+     z-index: 1;'
+     src="files/images/icons/follow.png" alt="Mountain View">
+</div>
+
+
+
+<div id="configurationArea_content">
+    <div id='songIconContent'>
+        {{ include('@Song/Default/index.html.twig') }}
+    </div>
+
+    <div id='artistIconContent'>
+        {{ include('@Artist/Default/index.html.twig') }}
+    </div>
+    
+</div>
+
+<script>
+    
+    $('#suscribeIconButton')
+    .click(function () {
+        followArtist(); // ArtistBundle
+    })
+    .mouseover(function () {
+        var suscribeIconButton = document.getElementById("suscribeIconButton");
+        suscribeIconButton.style.backgroundColor = "#1ab7ea";
+    })
+    .mouseout(function () {
+        var suscribeIconButton = document.getElementById("suscribeIconButton");
+        suscribeIconButton.style.backgroundColor = "white";
+    });
+    
+</script>

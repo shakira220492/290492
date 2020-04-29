@@ -1,0 +1,53 @@
+<div id='stockProduct_environment'> {#environment about upload product#}
+    {{ include('@UploadProduct/Default/stock.html.twig') }}
+</div>
+
+<div id='uploadProduct_environment'> {#environment about upload product#}
+    {{ include('@UploadProduct/Default/upload.html.twig') }}
+</div>
+
+<div id='branchProduct_environment'> {#environment about upload product#}
+    {{ include('@UploadProduct/Default/branch.html.twig') }}
+</div>
+
+<div id='productImage_stockButton'>
+    STOCK
+</div>
+
+<div id='productImage_uploadButton'>
+    UPLOAD
+</div>
+
+<div id='productImage_branchButton'>
+    BRANCH
+</div>
+
+    
+<script>
+
+    $('#productImage_stockButton').click(function () {
+        document.getElementById("stockProduct_environment").style.display = "block";
+        document.getElementById("uploadProduct_environment").style.display = "none";
+        document.getElementById("branchProduct_environment").style.display = "none";
+    });
+    
+    $('#productImage_uploadButton').click(function () {
+        document.getElementById("stockProduct_environment").style.display = "none";
+        document.getElementById("uploadProduct_environment").style.display = "block";
+        document.getElementById("branchProduct_environment").style.display = "none";
+    });
+    
+    $('#productImage_branchButton').click(function () {
+        document.getElementById("stockProduct_environment").style.display = "none";
+        document.getElementById("uploadProduct_environment").style.display = "none";
+        document.getElementById("branchProduct_environment").style.display = "block";
+    });
+    
+    function UploadProductBundle()
+    {
+        getStock();{#alert("3");#}
+        getBranch();{#alert("4");#}
+    }
+    
+        
+</script>
